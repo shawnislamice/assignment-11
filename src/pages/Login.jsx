@@ -1,7 +1,73 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthProvider";
+import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
+import auth from "../firebase/firebase.config";
 const Login = () => {
+  const { signIn, createUser, signInWithGoogle, setUser } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    const { email, password, confirmPassword, username, photo } = data;
+
+    if (password !== confirmPassword) {
+      toast.error("Password and confirm password dont match");
+      return;
+    }
+    createUser(email, password)
+      .then((result) => {
+        setUser({ ...result?.user, displayName: username, photoURL: photo });
+        updateProfile(auth.currentUser, {
+          displayName: username,
+          photoURL: photo,
+        });
+        console.log(result.user);
+        reset();
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    signIn(email, password)
+      .then((result) => {
+        console.log(result.user);
+        reset();
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  const handleGoogleLogin = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <div className=" flex justify-center items-center my-5 md:my-10">
       <Tabs>
@@ -14,8 +80,11 @@ const Login = () => {
 
         <TabPanel>
           <section className="bg-white shadow-xl p-6 rounded-xl dark:bg-gray-900">
+            <Helmet>
+              <title>Login: PrebonHotel</title>
+            </Helmet>
             <div className="container flex items-center justify-center px-6 mx-auto">
-              <form className="w-full max-w-md">
+              <form onSubmit={handleLogin} className="w-full max-w-md">
                 <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
                   sign In
                 </h1>
@@ -37,6 +106,7 @@ const Login = () => {
                     type="email"
                     className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Email address"
+                    name="email"
                   />
                 </div>
 
@@ -57,11 +127,15 @@ const Login = () => {
                     type="password"
                     className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Password"
+                    name="password"
                   />
                 </div>
 
                 <div className="mt-6">
-                  <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  <button
+                    type="submit"
+                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
                     Sign in
                   </button>
 
@@ -69,9 +143,9 @@ const Login = () => {
                     or sign in with
                   </p>
 
-                  <a
-                    href="#"
-                    className="flex items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  <button
+                    onClick={() => handleGoogleLogin()}
+                    className="flex mx-auto items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                   >
                     <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                       <path
@@ -93,7 +167,7 @@ const Login = () => {
                     </svg>
 
                     <span className="mx-2">Sign in with Google</span>
-                  </a>
+                  </button>
 
                   <div className="mt-6 text-center ">
                     <Link
@@ -111,8 +185,14 @@ const Login = () => {
         </TabPanel>
         <TabPanel>
           <section className="bg-white shadow-xl rounded-xl md:p-6 p-4 dark:bg-gray-900">
+            <Helmet>
+              <title>Register: PrebonHotel</title>
+            </Helmet>
             <div className="container flex items-center justify-center  px-6 mx-auto">
-              <form className="w-full max-w-md">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="w-full max-w-md"
+              >
                 <h1 className="text-center font-bold md:text-3xl">
                   Register Now
                 </h1>
@@ -133,24 +213,43 @@ const Login = () => {
                     type="text"
                     className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Username"
+                    name="username"
+                    {...register("username", { required: true })}
                   />
+                  {errors.username && (
+                    <span className="text-red-500 font-semibold">
+                      {" "}
+                      Feild is required
+                    </span>
+                  )}
                 </div>
+                <div className="relative flex items-center mt-8">
+                  <span className="absolute left-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-6 h-6 text-gray-300 dark:text-gray-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                  </span>
 
-                <label className="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-gray-300 dark:text-gray-500"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                  </svg>
-
-                  <h2 className="mx-3 text-gray-400">Profile Photo</h2>
-
-                  <input id="dropzone-file" type="file" className="hidden" />
-                </label>
+                  <input
+                    type="text"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="Profile Photo URL"
+                    name="photo"
+                    {...register("photo", { required: true })}
+                  />
+                  {errors.photo && (
+                    <span className="text-red-500 font-semibold">
+                      {" "}
+                      Feild is required
+                    </span>
+                  )}
+                </div>
 
                 <div className="relative flex items-center mt-6">
                   <span className="absolute">
@@ -169,7 +268,14 @@ const Login = () => {
                     type="email"
                     className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Email address"
+                    name="email"
+                    {...register("email", { required: true })}
                   />
+                  {errors.email && (
+                    <span className="text-red-500 font-semibold">
+                      Feild is required
+                    </span>
+                  )}
                 </div>
 
                 <div className="relative flex items-center mt-4">
@@ -189,7 +295,14 @@ const Login = () => {
                     type="password"
                     className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Password"
+                    name="password"
+                    {...register("password", { required: true })}
                   />
+                  {errors.password && (
+                    <span className="text-red-500 font-semibold">
+                      Feild is required
+                    </span>
+                  )}
                 </div>
 
                 <div className="relative flex items-center mt-4">
@@ -209,11 +322,21 @@ const Login = () => {
                     type="password"
                     className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Confirm Password"
+                    name="confirmPassword"
+                    {...register("confirmPassword", { required: true })}
                   />
+                  {errors.confirmPassword && (
+                    <span className="text-red-500 font-semibold">
+                      Feild is required
+                    </span>
+                  )}
                 </div>
 
                 <div className="mt-6">
-                  <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  <button
+                    type="submit"
+                    className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                  >
                     Sign Up
                   </button>
 

@@ -7,6 +7,8 @@ import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import RoomDetails from "../pages/RoomDetails";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,12 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/rooms/:id",
+        element: <RoomDetails></RoomDetails>,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/rooms/${params.id}`),
       },
     ],
   },

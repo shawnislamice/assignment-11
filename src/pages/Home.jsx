@@ -1,10 +1,13 @@
 import { Typewriter } from "react-simple-typewriter";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../contexts/AuthProvider";
 const Home = () => {
+  const {name}=useContext(AuthContext)
+
   const handleType = (number) => {
     // access word count number
     console.log();
@@ -17,7 +20,6 @@ const Home = () => {
   const [startDate2, setStartDate2] = useState(new Date());
 
   return (
-    
     <div className="md:mb-20 mb-5 relative bg-[url('./slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
       <Helmet>
         <title>Home: PrebonHotel</title>
@@ -52,6 +54,9 @@ const Home = () => {
             />
           </span>
         </h1>
+        <p className="max-w-xl mx-auto text-xl text-center text-[#070F2B] font-medium">
+          Explore the vibrant attractions and cultural landmarks 
+        </p>
         <button className=" relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
           <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-indigo-600 group-hover:h-full"></span>
           <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
@@ -103,7 +108,7 @@ const Home = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="" className="font-semibold">
-              Check In
+              Check Out
             </label>
             <DatePicker
               className="input bg-base-200"
