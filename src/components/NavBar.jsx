@@ -31,21 +31,49 @@ const NavBar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>Item 1</a>
+                {" "}
+                <NavLink
+             
+                  to="/"
+                >
+                  Home
+                </NavLink>
               </li>
               <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
+                {" "}
+                <NavLink
+              
+                  to="/rooms"
+                >
+                  Rooms
+                </NavLink>
               </li>
               <li>
-                <a>Item 3</a>
+                {" "}
+                <NavLink
+               
+                  to="/mybookings"
+                >
+                  My Bookings
+                </NavLink>
+              </li>
+              <li>
+                {" "}
+                <NavLink
+                  
+                  to="/aboutus"
+                >
+                  About Us
+                </NavLink>
+              </li>
+              <li>
+                {" "}
+                <NavLink
+                  
+                  to="/contactus"
+                >
+                  Contact Us
+                </NavLink>
               </li>
             </ul>
           </div>

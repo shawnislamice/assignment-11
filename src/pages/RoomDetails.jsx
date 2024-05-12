@@ -1,7 +1,8 @@
-
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Modal from "../components/Modal";
+import { createContext } from "react";
 
+export const ValueContext=createContext(null)
 const RoomDetails = () => {
   const room = useLoaderData();
 
@@ -130,7 +131,16 @@ const RoomDetails = () => {
               </p>
             </div>
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
-           <Modal room={room}></Modal>
+            <div className="flex items-center gap-4">
+              <Modal room={room}></Modal>
+
+              <button className="px-5 mt-4 py-3 relative rounded group overflow-hidden font-medium bg-purple-50 text-purple-600 inline-block">
+                <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-purple-600 group-hover:h-full opacity-90"></span>
+                <span className="relative group-hover:text-white">
+                  <Link to={`/filteredreviews/${room?._id}`}>See Reviews</Link>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

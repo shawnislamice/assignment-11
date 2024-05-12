@@ -14,7 +14,9 @@ const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
-
+  const [roomName, setRoomName] = useState("");
+  const [roomId, setRoomId] = useState(null);
+  console.log(roomName);
   const {
     data: bookings = [],
     isError,
@@ -101,6 +103,17 @@ const MyBookings = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
+    const userName = user?.displayName;
+    const userEmail = user?.email;
+    const userPhoto = user?.photoURL;
+    const newData = {
+      ...data,
+      roomName,
+      roomId,
+      userName,
+      userEmail,
+      userPhoto,
+    };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -120,13 +133,14 @@ const MyBookings = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          axiosSecure.post("/reviews", data).then((res) => {
+          axiosSecure.post("/reviews", newData).then((res) => {
             console.log(res.data);
             swalWithBootstrapButtons.fire({
               title: "Review Posted!",
               text: "Your review has been posted.",
               icon: "success",
             });
+            reset();
           });
         } else if (
           /* Read more about handling dismissals below */
@@ -305,7 +319,11 @@ const MyBookings = () => {
                                 booking?.status == "Canceled" ||
                                 booking?.status == "Pending"
                               }
-                              onClick={() => setOpenModal(true)}
+                              onClick={() => {
+                                setOpenModal(true);
+                                setRoomName(booking?.roomName || "Unknown");
+                                setRoomId(booking?._id);
+                              }}
                               title="Make Review"
                               className="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                             >

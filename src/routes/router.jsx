@@ -14,6 +14,7 @@ import UpdateProfile from "../pages/UpdateProfile";
 import PrivateRoute from "./PrivateRoute";
 import AddRoom from "../pages/AddRoom";
 import BookingRequests from "../pages/BookingRequests";
+import FilteredReviews from "../pages/FilteredReviews";
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,16 @@ const router = createBrowserRouter([
             <BookingRequests></BookingRequests>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/filteredreviews/:id",
+        element: (
+          <PrivateRoute>
+            <FilteredReviews></FilteredReviews>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/reviews/${params.id}`),
       },
     ],
   },
