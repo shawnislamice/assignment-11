@@ -50,24 +50,24 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         reset();
+        toast.success("Login Successful");
         navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error.message);
+        toast.error("Login Failed");
       });
   };
-  const handleGoogleLogin = () => {
+
+  const googleLogin = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-
+        toast.success("Login Successful");
         navigate(location?.state || "/");
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => toast(error.message));
   };
-
   return (
     <div className=" flex justify-center items-center my-5 md:my-10">
       <Tabs>
@@ -143,9 +143,9 @@ const Login = () => {
                     or sign in with
                   </p>
 
-                  <button
-                    onClick={() => handleGoogleLogin()}
-                    className="flex mx-auto items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  <p
+                    onClick={googleLogin}
+                    className="cursor-pointer flex mx-auto items-center justify-center px-6 py-3 mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                   >
                     <svg className="w-6 h-6 mx-2" viewBox="0 0 40 40">
                       <path
@@ -167,7 +167,7 @@ const Login = () => {
                     </svg>
 
                     <span className="mx-2">Sign in with Google</span>
-                  </button>
+                  </p>
 
                   <div className="mt-6 text-center ">
                     <Link

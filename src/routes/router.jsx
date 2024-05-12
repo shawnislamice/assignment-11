@@ -9,6 +9,11 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import RoomDetails from "../pages/RoomDetails";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import Profile from "../pages/Profile";
+import UpdateProfile from "../pages/UpdateProfile";
+import PrivateRoute from "./PrivateRoute";
+import AddRoom from "../pages/AddRoom";
+import BookingRequests from "../pages/BookingRequests";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +30,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/mybookings",
-        element: <MyBookings></MyBookings>,
+        element: (
+          <PrivateRoute>
+            <MyBookings></MyBookings>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/aboutus",
@@ -33,7 +42,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/contactus",
-        element: <ContactUs></ContactUs>,
+        element: (
+          <PrivateRoute>
+            <ContactUs></ContactUs>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -45,9 +58,45 @@ const router = createBrowserRouter([
       },
       {
         path: "/rooms/:id",
-        element: <RoomDetails></RoomDetails>,
+        element: (
+          <PrivateRoute>
+            <RoomDetails></RoomDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/rooms/${params.id}`),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/updateprofile",
+        element: (
+          <PrivateRoute>
+            <UpdateProfile></UpdateProfile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/addroom",
+        element: (
+          <PrivateRoute>
+            <AddRoom></AddRoom>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/bookingrequests",
+        element: (
+          <PrivateRoute>
+            <BookingRequests></BookingRequests>
+          </PrivateRoute>
+        ),
       },
     ],
   },

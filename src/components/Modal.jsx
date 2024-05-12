@@ -12,9 +12,10 @@ const Modal = ({ room }) => {
   const [openModal, setOpenModal] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [startDate2, setStartDate2] = useState(new Date());
+  const [demoData, setDemodata] = useState(null);
   let startDateTime = startDate.getTime();
   let endDateTime = startDate2.getTime();
-  let difference = endDateTime - startDateTime;
+  let difference = Math.abs(endDateTime - startDateTime);
   let differnceInDays = Math.round(difference / (1000 * 3600 * 24));
   let tax =
     parseFloat(room?.price_per_night) * parseInt(differnceInDays) * 0.13;
@@ -22,8 +23,9 @@ const Modal = ({ room }) => {
     parseFloat(room?.price_per_night) * parseInt(differnceInDays) +
     parseFloat(room?.price_per_night) * parseInt(differnceInDays) * 0.13;
   const axiosSecure = useAxiosSecure();
-  const navigate=useNavigate()
-  const {user}=useContext(AuthContext)
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
   useEffect(() => {
     if (openModal) {
       document.body.style.overflow = "hidden";
@@ -39,11 +41,34 @@ const Modal = ({ room }) => {
     watch,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     const checkIn = startDate;
     const checkOut = startDate2;
     let roomType = room?.room_type;
-    const newData = { ...data, checkIn, checkOut, tax, totalCost,roomType };
+    const status = "Pending";
+    const roomId = room?._id;
+    const sellerName = room?.seller?.sellerName;
+    const sellerEmail = room?.seller?.sellerEmail;
+    if (sellerEmail == user?.email) {
+      toast.error("You Can to Book Your Own Posted Room Bookings!");
+      return;
+    }
+    const seller = { sellerName, sellerEmail };
+    const roomName = room?.room_name;
+    setDemodata(data);
+    const newData = {
+      ...data,
+      checkIn,
+      checkOut,
+      tax,
+      totalCost,
+      roomType,
+      status,
+      roomId,
+      seller,
+      roomName,
+    };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -71,10 +96,13 @@ const Modal = ({ room }) => {
               icon: "success",
             });
             // Update
+            const currentAvilability = false;
+            axiosSecure
+              .put(`rooms/${room?._id}`, { currentAvilability })
+              .then((res) => console.log(res.data));
             // Update
-            navigate('/mybookings')
+            navigate("/mybookings");
           });
-          
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
@@ -87,6 +115,7 @@ const Modal = ({ room }) => {
         }
       });
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="">
       {/* Pay Button */}
@@ -149,7 +178,7 @@ const Modal = ({ room }) => {
                 <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
                   <div className="flex flex-col space-y-1.5 lg:p-6 p-2">
                     <h3 className="text-2xl font-semibold whitespace-nowrap">
-                      Shipping Details
+                      Booking Details
                     </h3>
                   </div>
                   <div className="lg:p-6 p-2">
@@ -158,16 +187,24 @@ const Modal = ({ room }) => {
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Name</label>
                         <input
+                          readOnly
                           className="bg-transparent flex h-10 w-full rounded-md border px-3"
                           placeholder="Enter your name"
                           name="customerName"
-                          {...register("customerName", { required: true })}
+                          defaultValue={user?.displayName}
+                          {...register("customerName")}
                         />
-                        {errors.customerName && (
-                          <span className="font-semibold text-red-500">
-                            Feild is Required
-                          </span>
-                        )}
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Email</label>
+                        <input
+                          readOnly
+                          className="bg-transparent flex h-10 w-full rounded-md border px-3"
+                          placeholder="Enter your email"
+                          name="customerEmail"
+                          defaultValue={user?.email}
+                          {...register("customerEmail")}
+                        />
                       </div>
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Address</label>
@@ -183,20 +220,7 @@ const Modal = ({ room }) => {
                           </span>
                         )}
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">City</label>
-                        <input
-                          className="bg-transparent flex h-10 w-full rounded-md border px-3"
-                          placeholder="Enter your city"
-                          name="customerCity"
-                          {...register("customerCity", { required: true })}
-                        />
-                        {errors.customerCity && (
-                          <span className="font-semibold text-red-500">
-                            Feild is Required
-                          </span>
-                        )}
-                      </div>
+
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Country</label>
                         <input
@@ -353,6 +377,17 @@ const Modal = ({ room }) => {
                   </div>
                   {/* Checkout form */}
                   <div className="lg:p-6 p-2">
+                    <div className="flex flex-col justify-end items-end my-3 space-y-2">
+                      <p>
+                        <b>Room Name:</b> {room?.room_name}
+                      </p>
+                      <p>
+                        <b>Room Type:</b> {room?.room_type}
+                      </p>
+                      <p>
+                        <b>Length:</b> {room?.sqft} Squareft
+                      </p>
+                    </div>
                     <div className="space-y-4">
                       <div className="flex justify-between">
                         <span>
