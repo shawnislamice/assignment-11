@@ -2,14 +2,19 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AddRoom = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -17,7 +22,25 @@ const AddRoom = () => {
     const sellerName = user?.displayName;
     const seller = { sellerName, sellerEmail };
     const newData = { ...data, seller };
-    axiosSecure.post("/rooms", newData).then((res) => console.log(res.data));
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Add Rom",
+      denyButtonText: `Don't add`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axiosSecure.post("/rooms", newData).then((res) => {
+          Swal.fire("Successfully Added!", "", "success");
+          console.log(res.data);
+          reset();
+          navigate(location?.state || '/addedrooms')
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Rooms are not added", "", "info");
+      }
+    });
   };
   return (
     <div>

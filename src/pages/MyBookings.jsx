@@ -16,7 +16,7 @@ const MyBookings = () => {
   const [openModal, setOpenModal] = useState(false);
   const [roomName, setRoomName] = useState("");
   const [roomId, setRoomId] = useState(null);
-  // console.log(roomd); 
+  // console.log(roomd);
   const {
     data: bookings = [],
     isError,
@@ -46,13 +46,50 @@ const MyBookings = () => {
       return;
     }
 
-    await axiosSecure
-      .put(`/bookings/${id}`, { currentStatus })
-      .then((res) => console.log(res.data));
-    await axiosSecure
-      .put(`/rooms/${roomID}`, { newAvailability })
-      .then((res) => console.log(res.data));
-    refetch();
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure to cancel this booking?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes,Cancel it!",
+        cancelButtonText: "No, proceed!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.put(`/bookings/${id}`, { currentStatus }).then((res) => {
+            console.log(res.data);
+            refetch();
+            swalWithBootstrapButtons.fire({
+              title: "Cenceled!",
+              text: "Your booking has been canceled.",
+              icon: "success",
+            });
+          });
+          axiosSecure
+            .put(`/rooms/${roomID}`, { newAvailability })
+            .then((res) => console.log(res.data));
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your booking is proceed :)",
+            icon: "error",
+          });
+        }
+      });
+
+    
   };
   const handleDelete = async (id) => {
     const swalWithBootstrapButtons = Swal.mixin({

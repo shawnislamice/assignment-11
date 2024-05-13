@@ -11,7 +11,13 @@ const PrivateRoute = ({ children }) => {
     return <Spinner></Spinner>;
   }
   if (!user) {
-    return <Navigate to="/login" state={location?.pathname}></Navigate>;
+    return (
+      <Navigate
+        to="/login"
+        state={location?.pathname}
+        replace={true}
+      ></Navigate>
+    );
   }
   return <div>{children}</div>;
 };
