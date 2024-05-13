@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { useForm } from "react-hook-form";
@@ -11,11 +11,18 @@ import auth from "../firebase/firebase.config";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import axios from "axios";
 const Login = () => {
-  const { signIn, createUser, signInWithGoogle, setUser } =
+  const { user, signIn, createUser, signInWithGoogle, setLoading, setUser } =
     useContext(AuthContext);
+
+  const axiosSecure = useAxiosSecure();
+
   const navigate = useNavigate();
   const location = useLocation();
-  const axiosSecure = useAxiosSecure();
+  if (user) {
+    navigate("/");
+    setLoading(true);
+    return;
+  }
   const {
     register,
     handleSubmit,

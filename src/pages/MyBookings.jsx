@@ -19,7 +19,7 @@ const MyBookings = () => {
   const [bookingId, setBookingID] = useState(null);
 
   // console.log(roomd);
-  console.log(roomId);
+  // console.log(roomId);
   const {
     data: bookings = [],
     isError,
@@ -43,7 +43,7 @@ const MyBookings = () => {
     roomID
   ) => {
     console.log(id, previousStatus, currentStatus, roomID);
-    const newAvailability = true;
+    const currentAvilability = "true";
     if (previousStatus === currentStatus) {
       toast.error("You Can Not Perform This Action");
       return;
@@ -78,7 +78,7 @@ const MyBookings = () => {
             });
           });
           axiosSecure
-            .put(`/rooms/${roomID}`, { newAvailability })
+            .put(`/rooms/${roomID}`,  {currentAvilability} )
             .then((res) => console.log(res.data));
         } else if (
           /* Read more about handling dismissals below */

@@ -26,15 +26,15 @@ const PricingOffer = () => {
           </div>
 
           <div className="grid gap-6 mt-16 -mx-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <div className="px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
+            <div className="bg-[#9DDE8B] px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
               <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
-                Intro
+                Coupon: SAVE19
               </p>
 
               <h4 className="mt-2 text-3xl font-semibold text-gray-800 dark:text-gray-100">
                 $19{" "}
                 <span className="text-base font-normal text-gray-600 dark:text-gray-400">
-                  / Month
+                  / Only One Booking
                 </span>
               </h4>
 
@@ -58,7 +58,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    All limited links
+                    Complimentary upgrade to a spacious family suite.
                   </span>
                 </div>
 
@@ -77,7 +77,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Own analytics platform
+                    Free breakfast buffet for the entire family.
                   </span>
                 </div>
 
@@ -96,7 +96,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Chat support
+                    Access to kids' club and children's activities.
                   </span>
                 </div>
 
@@ -115,7 +115,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Optimize hashtags
+                    Welcome amenities for kids (toys, coloring books).
                   </span>
                 </div>
 
@@ -134,7 +134,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Unlimited users
+                    Early check-in and late checkout (subject to availability).
                   </span>
                 </div>
               </div>
@@ -144,15 +144,15 @@ const PricingOffer = () => {
               </button>
             </div>
 
-            <div className="px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
+            <div className="bg-[#FF9F66] px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
               <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
-                Base
+                Coupon: WEEKEND25
               </p>
 
               <h4 className="mt-2 text-3xl font-semibold text-gray-800 dark:text-gray-100">
-                $39{" "}
+                $25{" "}
                 <span className="text-base font-normal text-gray-600 dark:text-gray-400">
-                  / Month
+                  / Only Two Booking
                 </span>
               </h4>
 
@@ -370,7 +370,7 @@ const PricingOffer = () => {
               </button>
             </div>
 
-            <div className="px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
+            <div className="bg-[#CDE8E5] px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
               <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
                 Exterprise
               </p>
