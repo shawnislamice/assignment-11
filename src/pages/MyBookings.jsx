@@ -16,7 +16,7 @@ const MyBookings = () => {
   const [openModal, setOpenModal] = useState(false);
   const [roomName, setRoomName] = useState("");
   const [roomId, setRoomId] = useState(null);
-  console.log(roomName);
+  // console.log(roomd); 
   const {
     data: bookings = [],
     isError,

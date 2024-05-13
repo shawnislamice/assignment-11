@@ -8,11 +8,14 @@ import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import axios from "axios";
 const Login = () => {
   const { signIn, createUser, signInWithGoogle, setUser } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -35,6 +38,10 @@ const Login = () => {
           photoURL: photo,
         });
         console.log(result.user);
+        const { data } = axiosSecure.post(`/jwt`, {
+          email: result?.user?.email,
+        });
+        console.log(data);
         reset();
         navigate(location?.state || "/");
       })
@@ -49,9 +56,13 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         console.log(result.user);
+        const { data } = axiosSecure.post(`/jwt`, {
+          email: result?.user?.email,
+        });
+        console.log(data);
         reset();
         toast.success("Login Successful");
-        navigate(location?.state || "/");
+        navigate(location?.state || "/", { replace: true });
       })
       .catch((error) => {
         console.log(error.message);
@@ -59,14 +70,18 @@ const Login = () => {
       });
   };
 
-  const googleLogin = () => {
-    signInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
-        toast.success("Login Successful");
-        navigate(location?.state || "/");
-      })
-      .catch((error) => toast(error.message));
+  const googleLogin = async () => {
+    try {
+      const result = await signInWithGoogle();
+      const { data } = await axiosSecure.post(`/jwt`, {
+        email: result?.user?.email,
+      });
+      console.log(data);
+      navigate(location?.state || "/", { replace: true });
+      toast.success("Login Successful");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <div className=" flex justify-center items-center my-5 md:my-10">
