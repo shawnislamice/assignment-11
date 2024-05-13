@@ -17,6 +17,7 @@ const Modal = ({ room }) => {
   let endDateTime = startDate2.getTime();
   let difference = Math.abs(endDateTime - startDateTime);
   let differnceInDays = Math.round(difference / (1000 * 3600 * 24));
+ 
   let tax =
     parseFloat(room?.price_per_night) * parseInt(differnceInDays) * 0.13;
   let totalCost =
@@ -45,7 +46,9 @@ const Modal = ({ room }) => {
   const onSubmit = (data) => {
     const checkIn = startDate;
     const checkOut = startDate2;
+    const duration = differnceInDays;
     let roomType = room?.room_type;
+    const price=room?.price_per_night
     const status = "Pending";
     const roomId = room?._id;
     const sellerName = room?.seller?.sellerName;
@@ -68,6 +71,8 @@ const Modal = ({ room }) => {
       roomId,
       seller,
       roomName,
+      duration,
+      price
     };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {

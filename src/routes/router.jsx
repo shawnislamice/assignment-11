@@ -13,6 +13,7 @@ import UpdateProfile from "../pages/UpdateProfile";
 import PrivateRoute from "./PrivateRoute";
 import AddRoom from "../pages/AddRoom";
 import BookingRequests from "../pages/BookingRequests";
+import BookingUpdate from "../pages/BookingUpdate";
 
 const router = createBrowserRouter([
   {
@@ -97,7 +98,16 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-     
+      {
+        path: "/bookingupdate/:id",
+        element: (
+          <PrivateRoute>
+            <BookingUpdate></BookingUpdate>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/bookings/${params.id}`),
+      },
     ],
   },
 ]);

@@ -5,10 +5,11 @@ import { AuthContext } from "../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import { MdOutlineFreeCancellation } from "react-icons/md";
 import { useForm } from "react-hook-form";
-
+import { CiSettings } from "react-icons/ci";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import Spinner from "../components/Spinner";
+import { Link } from "react-router-dom";
 
 const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
@@ -40,7 +41,8 @@ const MyBookings = () => {
     id,
     previousStatus,
     currentStatus,
-    roomID
+    roomID,
+    duration
   ) => {
     console.log(id, previousStatus, currentStatus, roomID);
     const currentAvilability = "true";
@@ -48,7 +50,10 @@ const MyBookings = () => {
       toast.error("You Can Not Perform This Action");
       return;
     }
-
+    if (duration == 1) {
+      toast.error("You can not cancel rooms before one days!");
+      return;
+    }
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -78,7 +83,7 @@ const MyBookings = () => {
             });
           });
           axiosSecure
-            .put(`/rooms/${roomID}`,  {currentAvilability} )
+            .put(`/rooms/${roomID}`, { currentAvilability })
             .then((res) => console.log(res.data));
         } else if (
           /* Read more about handling dismissals below */
@@ -265,8 +270,8 @@ const MyBookings = () => {
                         Current Status
                       </th>
 
-                      <th scope="col" className="relative py-3.5 px-4">
-                        <span className="sr-only">Edit</span>
+                      <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        Actions
                       </th>
                     </tr>
                   </thead>
@@ -336,7 +341,8 @@ const MyBookings = () => {
                                   booking?._id,
                                   booking?.status,
                                   "Canceled",
-                                  booking?.roomId
+                                  booking?.roomId,
+                                  booking?.duration
                                 )
                               }
                               className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
@@ -390,6 +396,19 @@ const MyBookings = () => {
                               >
                                 <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                               </svg>
+                            </button>
+                            <button
+                              className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                              title="Update"
+                              disabled={
+                                booking?.status == "Canceled" ||
+                                booking?.status == "Pending" ||
+                                booking?.status == "Booked"
+                              }
+                            >
+                              <Link to={`/bookingupdate/${booking?._id}`}>
+                                <CiSettings size={22}></CiSettings>
+                              </Link>
                             </button>
                           </div>
                         </td>
