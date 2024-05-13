@@ -339,7 +339,7 @@ const MyBookings = () => {
                                   booking?.roomId
                                 )
                               }
-                              className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
+                              className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
                             >
                               <MdOutlineFreeCancellation
                                 title="Cancel Booking"
@@ -354,7 +354,7 @@ const MyBookings = () => {
                                 booking?.status == "Pending" ||
                                 booking?.status == "Reviewed"
                               }
-                              className="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                              className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -379,7 +379,7 @@ const MyBookings = () => {
                                 setBookingID(booking?._id);
                               }}
                               title="Make Review"
-                              className="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                              className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
