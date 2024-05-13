@@ -14,6 +14,7 @@ import PrivateRoute from "./PrivateRoute";
 import AddRoom from "../pages/AddRoom";
 import BookingRequests from "../pages/BookingRequests";
 import BookingUpdate from "../pages/BookingUpdate";
+import Gallery from "../pages/Gallery";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/bookings/${params.id}`),
       },
+      {
+        path:'/gallery',
+        element:<Gallery></Gallery>
+      }
     ],
   },
 ]);

@@ -134,6 +134,15 @@ const NavBar = () => {
                 Contact Us
               </NavLink>
             </li>
+            <li>
+              {" "}
+              <NavLink
+                className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                to="/gallery"
+              >
+                Gallery
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="navbar-end">

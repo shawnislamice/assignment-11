@@ -19,7 +19,7 @@ const ContactUs = () => {
         </p>
         <hr className="my-3 border-gray-200  dark:border-gray-700" />
       </div>
-      <div className="flex flex-col md:flex-row items-center gap-4">
+      <div className="flex flex-col lg:flex-row items-center gap-4">
         <div className="basis-1/2">
           <img
             className="object-cover w-full "
@@ -29,7 +29,7 @@ const ContactUs = () => {
         </div>
         <div className="basis-1/2  rounded-xl">
           <section className="max-w-4xl p-6 mx-auto bg-white rounded-md  dark:bg-gray-800">
-            <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
+            <h2 className="text-lg  font-semibold text-gray-700 capitalize dark:text-white">
               Contact Us
             </h2>
 

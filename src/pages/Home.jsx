@@ -46,13 +46,13 @@ const Home = () => {
   refetch();
   return (
     <div>
-      <div className=" md:mb-20 mb-5 relative bg-[url('./slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
+      <div className=" md:mb-20 mb-5 relative bg-[url('/slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
         <Helmet>
           <title>Home: PrebonHotel</title>
         </Helmet>
         <div className="flex flex-col justify-center items-center gap-3 md:gap-5 md:pt-40 pt-20">
           <h1
-            className="text-2xl md:text-5xl text-black font-bold"
+            className="text-2xl md:text-3xl lg:text-5xl text-black font-bold"
             style={{
               paddingTop: "5rem",
               margin: "auto 0",
@@ -80,7 +80,7 @@ const Home = () => {
               />
             </span>
           </h1>
-          <p className="max-w-md md:max-w-xl mx-auto text-xl text-center text-[#070F2B] font-medium">
+          <p className="max-w-md md:max-w-xl mx-auto md:text-xl text-center text-[#070F2B] font-medium">
             Explore the vibrant attractions and cultural landmarks
           </p>
           <button className=" relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
@@ -111,7 +111,7 @@ const Home = () => {
               Explore Now
             </span>
           </button>
-          <div className="bg-[#F87018] rounded-lg p-8  md:absolute -bottom-[10%] flex-col md:flex-row md:flex justify-center md:justify-around items-center gap-4 mb-4 md:mb-0">
+          <div className="bg-[#F87018] rounded-lg p-8  md:absolute -bottom-[10%] flex-col md:flex-row lg:flex md:hidden justify-center md:justify-around items-center gap-4 mb-4 md:mb-0">
             <div className="flex flex-col gap-2">
               <label htmlFor="" className="font-semibold">
                 Check In
@@ -174,7 +174,7 @@ const Home = () => {
         </p>
         <hr className="my-3 border-gray-200  dark:border-gray-700" />
       </div>
-      <div className="pt-2 grid md:grid-cols-3 place-items-center grid-cols-1 max-w-6xl mx-auto">
+      <div className="pt-2 grid md:grid-cols-2 lg:grid-cols-3 place-items-center grid-cols-1 max-w-6xl mx-auto">
         {rooms.splice(0, 6).map((room) => (
           <RoomCard room={room} key={room?._id}></RoomCard>
         ))}

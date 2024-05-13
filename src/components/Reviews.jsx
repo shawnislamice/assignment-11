@@ -29,7 +29,7 @@ const Reviews = () => {
         </p>
         <hr className="my-3 border-gray-200  dark:border-gray-700" />
       </div>
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:max-w-6xl mx-auto md:gap-5 place-items-center">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 md:max-w-6xl mx-auto md:gap-5 place-items-center">
         {reviews.map((review) => (
           <ReviewCard key={review._id} review={review}></ReviewCard>
         ))}

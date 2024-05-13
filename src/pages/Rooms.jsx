@@ -85,7 +85,7 @@ const Rooms = () => {
         </p>
         <hr className="my-3 border-gray-200  dark:border-gray-700" />
       </div>
-      <div className="my-5 md:my-8 flex flex-col md:flex-row justify-center items-center gap-5 ">
+      <div className="my-5 md:my-8 flex flex-col lg:flex-row justify-center items-center gap-5 ">
         <div>
           <select
             name="category"
@@ -151,7 +151,7 @@ const Rooms = () => {
           Reset
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 md:mx-auto md:max-w-6xl gap-4 md:gap-6 place-items-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:mx-auto md:max-w-6xl sm:gap-4 lg:gap-6 place-items-center">
         {rooms.map((room) => (
           <RoomCard room={room} key={room._id}></RoomCard>
         ))}
