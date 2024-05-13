@@ -1,10 +1,34 @@
 import { Link, useLoaderData } from "react-router-dom";
 import Modal from "../components/Modal";
 import { createContext } from "react";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import ReviewCard from "../components/ReviewCard";
+import toast from "react-hot-toast";
 
-export const ValueContext=createContext(null)
+export const ValueContext = createContext(null);
 const RoomDetails = () => {
   const room = useLoaderData();
+  const axiosSecure = useAxiosSecure();
+
+
+  const {
+    data: reviews = [],
+    isError,
+    error,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["reviews"],
+  });
+
+  const getData = async () => {
+    const { data } = await axiosSecure.get(`/reviews/${room?._id}`);
+    return data;
+  };
+  // console.log(reviews);
+  refetch();
 
   return (
     <div className="container mx-auto max-w-screen-xl my-5">
@@ -133,17 +157,42 @@ const RoomDetails = () => {
             {/* You can open the modal using document.getElementById('ID').showModal() method */}
             <div className="flex items-center gap-4">
               <Modal room={room}></Modal>
-
-              <button className="px-5 mt-4 py-3 relative rounded group overflow-hidden font-medium bg-purple-50 text-purple-600 inline-block">
-                <span className="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-purple-600 group-hover:h-full opacity-90"></span>
-                <span className="relative group-hover:text-white">
-                  <Link to={`/filteredreviews/${room?._id}`}>See Reviews</Link>
-                </span>
-              </button>
             </div>
           </div>
         </div>
       </div>
+      {reviews.length > 0 && (
+        <div>
+          <div className="my-10">
+            <hr className="my-3 border-gray-200  dark:border-gray-700" />
+            <h2 className="text-center text-3xl font-semibold">
+              This Rooms has <span className="text-emerald-500">{reviews.length}</span> Reviews
+            </h2>
+            <p className="max-w-xl mx-auto opacity-90 text-center pt-2">
+              Several delighted customers have graciously shared their glowing
+              reviews of this exceptional room, each echoing the sentiment of a
+              truly memorable experience. The consensus is unanimous: this room
+              exceeded expectations on all fronts.
+            </p>
+            <hr className="my-3 border-gray-200  dark:border-gray-700" />
+          </div>
+          <div className="my-5 md:my-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 place-items-center">
+            {reviews.map((review) => (
+              <ReviewCard key={review._id} review={review}></ReviewCard>
+            ))}
+          </div>
+        </div>
+      )}
+      {reviews.length == 0 && (
+        <div className="flex flex-col items-center justify-center gap-5 my-7">
+          <h2 className="text-xl text-center text-red-500 font-semibold">
+            There has no reviews yet!
+          </h2>
+          <button className="btn btn-outline text-emerald-500">
+            <Link to="/mybookings">Make A Review</Link>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

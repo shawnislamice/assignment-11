@@ -7,13 +7,15 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../contexts/AuthProvider";
 import HomeMap from "../components/HomeMap";
 import Newsletter from "../components/Newsletter";
-import Rooms from "./Rooms";
+
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import RoomCard from "../components/RoomCard";
 import { Link } from "react-router-dom";
 import Reviews from "../components/Reviews";
+import PricingOffer from "../components/PricingOffer";
 const Home = () => {
+  
   const { name } = useContext(AuthContext);
 
   const handleType = (number) => {
@@ -41,7 +43,7 @@ const Home = () => {
     const { data } = await axiosSecure.get("/rooms");
     return data;
   };
-  refetch()
+  refetch();
   return (
     <div>
       <div className=" md:mb-20 mb-5 relative bg-[url('./slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
@@ -91,10 +93,7 @@ const Home = () => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
             </span>
             <span className="absolute  left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
@@ -105,10 +104,7 @@ const Home = () => {
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
             </span>
             <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">
@@ -183,7 +179,7 @@ const Home = () => {
           <RoomCard room={room} key={room?._id}></RoomCard>
         ))}
       </div>
-      
+
       <button className="block mx-auto">
         <Link
           to="/rooms"
@@ -196,6 +192,7 @@ const Home = () => {
       <HomeMap></HomeMap>
 
       <Newsletter></Newsletter>
+      <PricingOffer></PricingOffer>
       <Reviews></Reviews>
     </div>
   );

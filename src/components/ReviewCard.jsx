@@ -1,64 +1,31 @@
-import { GoArrowLeft, GoArrowRight } from "react-icons/go"; // Assuming you're using react-icons for the arrows
-
 const ReviewCard = ({ review }) => {
   return (
-    <div className="relative">
-      <div className="container carousel-item flex flex-col w-full max-w-lg p-6 mx-auto divide-y rounded-md dark:divide-gray-300 dark:bg-gray-50 dark:text-gray-800">
-        <div className="flex justify-between p-4">
-          <div className="flex space-x-4 items-center">
-            <div>
-              <img
-                src={review?.userPhoto} // Assuming this path is correct
-                alt=""
-                className="object-cover w-12 h-12 rounded-full dark:bg-gray-500"
-              />
-            </div>
-            <div>
-              <h4 className="font-bold">{review?.userName}</h4>
-              <span className="dark:text-gray-600">Room: {review?.roomName}</span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2 dark:text-yellow-700">
-            <img src="/quote.svg" alt="" />
-          </div>
-        </div>
-        <div className="p-4 space-y-2 text-sm dark:text-gray-600">
-          <p className="opacity-80 leading-7 text-justify">
-            <b>Review Description: </b>{review?.reviewDescription}
+    <section className="bg-white dark:bg-gray-900">
+      <div className="container px-6 py-10 mx-auto">
+        <div className="md:w-[365px] md:h-[250px] hover:bg-blue-500 duration-500 hover:scale-95 shadow-md p-8 border rounded-lg dark:border-gray-700">
+          <p className="leading-loose text-black dark:text-gray-400">
+            “{review?.reviewDescription.slice(0,70)}”.
           </p>
-        </div>
-        <div className="rating pt-3">
-          {/* Adjusted the radio inputs for star ratings */}
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-          />
-          <input
-            type="radio"
-            name="rating-2"
-            className="mask mask-star-2 bg-orange-400"
-            checked
-          />
+
+          <div className="flex items-center mt-8 -mx-2">
+            <img
+              className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300 dark:ring-gray-700"
+              src={review?.userPhoto}
+              alt=""
+            />
+
+            <div className="mx-2">
+              <h1 className="font-semibold text-black dark:text-white">
+                {review?.userName}
+              </h1>
+              <span className="text-sm text-black dark:text-gray-400">
+                <b>Rating: </b>{review?.rating}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-     
-    </div>
+    </section>
   );
 };
 

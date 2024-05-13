@@ -8,21 +8,16 @@ import ContactUs from "../pages/ContactUs";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import RoomDetails from "../pages/RoomDetails";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import Profile from "../pages/Profile";
 import UpdateProfile from "../pages/UpdateProfile";
 import PrivateRoute from "./PrivateRoute";
 import AddRoom from "../pages/AddRoom";
 import BookingRequests from "../pages/BookingRequests";
-import FilteredReviews from "../pages/FilteredReviews";
-import AddedRooms from "../pages/AddedRooms";
-import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -102,24 +97,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/filteredreviews/:id",
-        element: (
-          <PrivateRoute>
-            <FilteredReviews></FilteredReviews>
-          </PrivateRoute>
-        ),
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/reviews/${params.id}`),
-      },
-      {
-        path: "/addedrooms",
-        element: (
-          <PrivateRoute>
-            <AddedRooms></AddedRooms>
-          </PrivateRoute>
-        ),
-      },
+     
     ],
   },
 ]);

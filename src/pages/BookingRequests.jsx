@@ -111,7 +111,7 @@ const BookingRequests = () => {
                         {booking?.roomName || "Unknown"}
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">
-                        {booking?.seller?.sellerEmail}
+                        {booking?.customerEmail}
                       </td>
 
                       <td className="px-4 py-4 text-sm text-gray-500  whitespace-nowrap">

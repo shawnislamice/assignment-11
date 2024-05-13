@@ -16,7 +16,10 @@ const MyBookings = () => {
   const [openModal, setOpenModal] = useState(false);
   const [roomName, setRoomName] = useState("");
   const [roomId, setRoomId] = useState(null);
+  const [bookingId, setBookingID] = useState(null);
+
   // console.log(roomd);
+  console.log(roomId);
   const {
     data: bookings = [],
     isError,
@@ -88,8 +91,6 @@ const MyBookings = () => {
           });
         }
       });
-
-    
   };
   const handleDelete = async (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -139,10 +140,12 @@ const MyBookings = () => {
     reset,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
     const userName = user?.displayName;
     const userEmail = user?.email;
     const userPhoto = user?.photoURL;
+
     const newData = {
       ...data,
       roomName,
@@ -178,6 +181,10 @@ const MyBookings = () => {
               icon: "success",
             });
             reset();
+            axiosSecure
+              .put(`/bookings/${bookingId}`, { currentStatus: "Reviewed" })
+              .then((res) => console.log(res.data));
+            refetch();
           });
         } else if (
           /* Read more about handling dismissals below */
@@ -198,6 +205,7 @@ const MyBookings = () => {
   if (isError || error) {
     toast.error(error.message);
   }
+
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
       <Helmet>
@@ -304,6 +312,11 @@ const MyBookings = () => {
                                 booking?.status == "Canceled"
                                   ? "px-3 py-1 text-xs text-pink-500 rounded-full dark:bg-gray-800 bg-pink-100/60"
                                   : ""
+                              }
+                              ${
+                                booking?.status == "Reviewed"
+                                  ? "px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60"
+                                  : ""
                               }`}
                             >
                               {booking?.status}
@@ -315,7 +328,8 @@ const MyBookings = () => {
                             <button
                               disabled={
                                 booking?.status == "Booked" ||
-                                booking?.status == "Canceled"
+                                booking?.status == "Canceled" ||
+                                booking?.status == "Reviewed"
                               }
                               onClick={() =>
                                 handleCancelBooking(
@@ -337,7 +351,8 @@ const MyBookings = () => {
                               onClick={() => handleDelete(booking?._id)}
                               disabled={
                                 booking?.status == "Booked" ||
-                                booking?.status == "Pending"
+                                booking?.status == "Pending" ||
+                                booking?.status == "Reviewed"
                               }
                               className="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                             >
@@ -354,12 +369,14 @@ const MyBookings = () => {
                             <button
                               disabled={
                                 booking?.status == "Canceled" ||
-                                booking?.status == "Pending"
+                                booking?.status == "Pending" ||
+                                booking?.status == "Reviewed"
                               }
                               onClick={() => {
                                 setOpenModal(true);
                                 setRoomName(booking?.roomName || "Unknown");
-                                setRoomId(booking?._id);
+                                setRoomId(booking?.roomId);
+                                setBookingID(booking?._id);
                               }}
                               title="Make Review"
                               className="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
