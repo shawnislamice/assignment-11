@@ -21,7 +21,7 @@ const RoomCard = ({ room }) => {
             {room?.room_type}
           </button>
           <button disabled className="rounded-md border border-black px-4 dark:border-white dark:hover:text-slate-800 dark:hover:bg-white  py-2  duration-300 hover:bg-gray-200">
-            {room?.availability?'Available':'Unavailable'}
+            {room?.availability=="true"?'Available':'Unavailable'}
           </button>
         </div>
       </div>

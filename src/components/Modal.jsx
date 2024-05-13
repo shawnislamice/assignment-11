@@ -82,7 +82,7 @@ const Modal = ({ room }) => {
         text: "You are going to book this room!",
         icon: "info",
         showCancelButton: true,
-        confirmButtonText: "Confirm Order",
+        confirmButtonText: "Confirm Booking",
         cancelButtonText: "No, cancel!",
         reverseButtons: true,
       })
@@ -96,7 +96,7 @@ const Modal = ({ room }) => {
               icon: "success",
             });
             // Update
-            const currentAvilability = false;
+            const currentAvilability = "false";
             axiosSecure
               .put(`rooms/${room?._id}`, { currentAvilability })
               .then((res) => console.log(res.data));
