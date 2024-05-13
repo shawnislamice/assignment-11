@@ -16,11 +16,13 @@ import AddRoom from "../pages/AddRoom";
 import BookingRequests from "../pages/BookingRequests";
 import FilteredReviews from "../pages/FilteredReviews";
 import AddedRooms from "../pages/AddedRooms";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
