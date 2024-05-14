@@ -52,9 +52,10 @@ const Reviews = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination,Autoplay]}
+        modules={[Pagination, Autoplay]}
         autoplay={{ delay: 1000 }}
         className="mySwiper"
+      
       >
         {reviews.map((review) => (
           <SwiperSlide key={review._id}>

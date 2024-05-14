@@ -36,15 +36,15 @@ const RoomDetails = () => {
 
   return (
     <div className="container mx-auto max-w-screen-xl my-5">
-      <div className="flex gap-4 md:gap-6 ">
-        <div className="basis-[48%]">
+      <div className="flex flex-col p-2 md:flex-row gap-4 md:gap-6 ">
+        <div className="md:basis-[48%]">
           <img
             src={room?.photo}
-            className="object-cover rounded-lg md:w-[700px] md:h-[450px]"
+            className="object-cover rounded-lg lg:w-[700px] h-full lg:h-[450px]  "
             alt=""
           />
         </div>
-        <div className="basis-[48%]">
+        <div className="md:basis-[48%]">
           <hr className="w-full border border-dashed my-3" />
           <h1 className=" md:text-2xl text-center">
             <b>Room Name: </b>

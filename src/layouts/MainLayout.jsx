@@ -9,7 +9,9 @@ const MainLayout = () => {
       <div className="md:h-[68px]">
         <NavBar></NavBar>
       </div>
-      <Outlet></Outlet>
+      <div className="">
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
       <Toaster></Toaster>
     </div>
