@@ -169,23 +169,23 @@ const MyRooms = () => {
                             <span
                               className={`${
                                 room?.status == "Added"
-                                  ? "h-1.5 w-1.5 rounded-full bg-yellow-500"
+                                  ? "h-1.5 w-1.5 px-3 py-1.5 rounded-full bg-indigo-100/60 text-indigo-500"
                                   : ""
                               }
                             ${
                               room?.status == "Updated"
-                                ? "h-1.5 w-1.5 rounded-full bg-emerald-500"
+                                ? "h-1.5 w-1.5 px-3 py-1.5 rounded-full bg-emerald-100/60 text-emerald-500"
                                 : ""
                             }
                             ${
                               room?.status == "Removed"
-                                ? "h-1.5 w-1.5 rounded-full bg-pink-500"
+                                ? "h-1.5 w-1.5 px-3 py-1.5 rounded-full bg-pink-100/60 text-pink-500"
                                 : ""
                             }`}
-                            ></span>
-                            <h2 className="text-sm font-normal ">
+                            >
                               {room?.status}
-                            </h2>
+                            </span>
+                            <h2 className="text-sm font-normal "></h2>
                           </div>
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">

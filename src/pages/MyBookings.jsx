@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import toast from "react-hot-toast";
 import { MdOutlineFreeCancellation } from "react-icons/md";
@@ -18,7 +18,22 @@ const MyBookings = () => {
   const [roomName, setRoomName] = useState("");
   const [roomId, setRoomId] = useState(null);
   const [bookingId, setBookingID] = useState(null);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [myTotalBookings,setMyTotalBookings]=useState(null)
+  const [itemsPerPage,setItemsPerPage]=useState(5)
+  const page = Math.ceil(myTotalBookings/itemsPerPage); // Adjust the page numbers the way you want
+  const updatePageNumber = (num) => {
+    if (num > page - 1 || 0 > num) {
+      return setPageNumber(0);
+    }
+    setPageNumber(num);
+  };
 
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/bookingscount`)
+      .then((res) => res.json())
+      .then((data) => setMyTotalBookings(parseInt(data.totalBookings)));
+  }, []);
   // console.log(roomd);
   // console.log(roomId);
   const {
@@ -29,11 +44,13 @@ const MyBookings = () => {
     refetch,
   } = useQuery({
     queryFn: () => getData(),
-    queryKey: ["my-bookings"],
+    queryKey: ["my-bookings", pageNumber, itemsPerPage, myTotalBookings, page],
   });
   // console.log(bookings);
   const getData = async () => {
-    const { data } = await axiosSecure.get(`/bookingss/${user?.email}`);
+    const { data } = await axiosSecure.get(
+      `/bookingss/${user?.email}?page=${pageNumber}&size=${itemsPerPage}`
+    );
     return data;
   };
 
@@ -388,10 +405,7 @@ const MyBookings = () => {
                                   booking?.status == "Reviewed"
                                 }
                               >
-                                <Link
-                                 
-                                   to={`/bookingupdate/${booking?._id}`}
-                                >
+                                <Link to={`/bookingupdate/${booking?._id}`}>
                                   <CiSettings size={22}></CiSettings>
                                 </Link>
                               </button>
@@ -602,7 +616,91 @@ const MyBookings = () => {
               </div>
             </div>
           </div>
-
+          {/* Pagination */}
+          <div className="mt-6 flex select-none justify-center items-center bg-white shadow-lg rounded-sm w-fit mx-auto">
+            {/* left arrow */}
+            <div
+              onClick={() => {
+                updatePageNumber(pageNumber - 1);
+              }}
+              className="transition-all py-2 px-3 text-sm border-r duration-200 cursor-pointer p-2 rounded-md flex hover:bg-gray-200 items-center"
+            >
+              <svg
+                className="w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth={0} />
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M15 7L10 12L15 17"
+                    stroke="#0284C7"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />{" "}
+                </g>
+              </svg>
+              Previous
+            </div>
+            <div className="flex justify-center items-center  ">
+              {[...Array(page).keys()].map((item, ind) => (
+                <div
+                  onClick={() => {
+                    setPageNumber(item);
+                  }}
+                  className={`cursor-pointer  text-sm  transition-all border-r border-l  duration-200 px-4 ${
+                    pageNumber === item
+                      ? "bg-sky-500 text-white"
+                      : "bg-white hover:bg-gray-200"
+                  }   font-semibold text-gray-700   py-[8px] `}
+                  key={item}
+                >
+                  {item + 1}
+                </div>
+              ))}
+            </div>
+            {/* right arrow */}
+            <div
+              onClick={() => {
+                updatePageNumber(pageNumber + 1);
+              }}
+              className=" transition-all py-2  px-3 text-sm duration-200 cursor-pointer border-l  rounded-md flex hover:bg-gray-200 items-center"
+            >
+              Next
+              <svg
+                className="w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M10 7L15 12L10 17"
+                    stroke="#0284C7"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>{" "}
+                </g>
+              </svg>
+            </div>
+          </div>
+          {/* Pagination */}
           <div className="flex md:hidden items-center justify-between mt-6">
             <a
               href="#"

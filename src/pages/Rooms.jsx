@@ -37,7 +37,6 @@ const Rooms = () => {
     queryKey: ["rooms", pageNumber, itemsPerPage, filter, sortBy, search],
   });
   const getData = async () => {
-    +1;
     const { data } = await axiosSecure.get(
       `/rooms?page=${pageNumber}&size=${itemsPerPage}&filter=${filter}&sort=${sortBy}&search=${search}`
     );
@@ -144,7 +143,7 @@ const Rooms = () => {
             setFilter("");
             setSortBy("");
             setSearchText("");
-            setSearch('')
+            setSearch("");
           }}
           className="btn"
         >
