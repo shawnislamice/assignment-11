@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CiSettings } from "react-icons/ci";
 
 const AddRoom = () => {
   const { user } = useContext(AuthContext);
@@ -21,7 +22,8 @@ const AddRoom = () => {
     const sellerEmail = user?.email;
     const sellerName = user?.displayName;
     const seller = { sellerName, sellerEmail };
-    const newData = { ...data, seller };
+    const status='Added'
+    const newData = { ...data, seller,status };
     Swal.fire({
       title: "Do you want to save the changes?",
       showDenyButton: true,
@@ -35,7 +37,7 @@ const AddRoom = () => {
           Swal.fire("Successfully Added!", "", "success");
           console.log(res.data);
           reset();
-          navigate(location?.state || '/addedrooms')
+          navigate(location?.state || '/myrooms')
         });
       } else if (result.isDenied) {
         Swal.fire("Rooms are not added", "", "info");

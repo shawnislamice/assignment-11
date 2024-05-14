@@ -15,6 +15,8 @@ import AddRoom from "../pages/AddRoom";
 import BookingRequests from "../pages/BookingRequests";
 import BookingUpdate from "../pages/BookingUpdate";
 import Gallery from "../pages/Gallery";
+import MyRooms from "../pages/MyRooms";
+import UpdateRoom from "../pages/UpdateRoom";
 
 const router = createBrowserRouter([
   {
@@ -110,8 +112,21 @@ const router = createBrowserRouter([
           fetch(`${import.meta.env.VITE_API_URL}/bookings/${params.id}`),
       },
       {
-        path:'/gallery',
-        element:<Gallery></Gallery>
+        path: "/gallery",
+        element: <Gallery></Gallery>,
+      },
+      {
+        path: "/myrooms",
+        element: (
+          <PrivateRoute>
+            <MyRooms></MyRooms>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path:'/updateroom/:id',
+        element:<UpdateRoom></UpdateRoom>,
+        loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/rooms/${params.id}`)
       }
     ],
   },

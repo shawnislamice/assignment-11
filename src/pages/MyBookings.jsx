@@ -367,7 +367,7 @@ const MyBookings = () => {
                                   booking?.status == "Pending" ||
                                   booking?.status == "Reviewed"
                                 }
-                                className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                                className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -388,7 +388,10 @@ const MyBookings = () => {
                                   booking?.status == "Reviewed"
                                 }
                               >
-                                <Link to={`/bookingupdate/${booking?._id}`}>
+                                <Link
+                                 
+                                   to={`/bookingupdate/${booking?._id}`}
+                                >
                                   <CiSettings size={22}></CiSettings>
                                 </Link>
                               </button>

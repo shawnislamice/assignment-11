@@ -45,10 +45,10 @@ const Login = () => {
           photoURL: photo,
         });
         console.log(result.user);
-        const { data } = axiosSecure.post(`/jwt`, {
-          email: result?.user?.email,
-        });
-        console.log(data);
+        // const { data } = axiosSecure.post(`/jwt`, {
+        //   email: result?.user?.email,
+        // });
+        // console.log(data);
         reset();
         navigate(location?.state || "/");
       })
@@ -63,10 +63,10 @@ const Login = () => {
     signIn(email, password)
       .then((result) => {
         console.log(result.user);
-        const { data } = axiosSecure.post(`/jwt`, {
-          email: result?.user?.email,
-        });
-        console.log(data);
+        // const { data } = axiosSecure.post(`/jwt`, {
+        //   email: result?.user?.email,
+        // });
+        // console.log(data);
         reset();
         toast.success("Login Successful");
         navigate(location?.state || "/", { replace: true });
@@ -80,10 +80,10 @@ const Login = () => {
   const googleLogin = async () => {
     try {
       const result = await signInWithGoogle();
-      const { data } = await axiosSecure.post(`/jwt`, {
-        email: result?.user?.email,
-      });
-      console.log(data);
+      // const { data } = await axiosSecure.post(`/jwt`, {
+      //   email: result?.user?.email,
+      // });
+      // console.log(data);
       navigate(location?.state || "/", { replace: true });
       toast.success("Login Successful");
     } catch (error) {

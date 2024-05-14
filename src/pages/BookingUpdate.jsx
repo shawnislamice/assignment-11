@@ -20,7 +20,7 @@ const BookingUpdate = () => {
   const pricePerNight = parseFloat(booking?.price);
   const newTotal = parseInt(differnceInDays) * pricePerNight;
   const newTax = newTotal * 0.13;
-  const newTotalCost=newTotal+newTax
+  const newTotalCost = newTotal + newTax;
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,6 +31,8 @@ const BookingUpdate = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const [openModal, setOpenModal] = useState(false);
+
   const onSubmit = async (data) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -51,7 +53,13 @@ const BookingUpdate = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          const newData = { startDate, endDate, newTotal, newTax,newTotalCost };
+          const newData = {
+            startDate,
+            endDate,
+            newTotal,
+            newTax,
+            newTotalCost,
+          };
           try {
             const { data } = axiosSecure.put(
               `/newbookings/${booking?._id}`,
@@ -63,7 +71,7 @@ const BookingUpdate = () => {
               text: "Your booking has been updated.",
               icon: "success",
             });
-            navigate( "/mybookings", { replace: true });
+            navigate("/mybookings", { replace: true });
           } catch (error) {
             toast.error(error.message);
           }
@@ -196,18 +204,94 @@ const BookingUpdate = () => {
                 defaultValue={new Date(booking?.checkOut).toLocaleDateString()}
               />
             </div>
-          </div>
-
-          <div className="flex justify-end mt-6">
-            <button
-              type="submit"
-              className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+            <div
+              onClick={() => setOpenModal(false)}
+              className={`fixed z-[100] flex items-center justify-center ${
+                openModal ? "visible opacity-100" : "invisible opacity-0"
+              } inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
             >
-              Update Now
-            </button>
+              <div
+                onClick={(e_) => e_.stopPropagation()}
+                className={`text- absolute max-w-md rounded-lg bg-white p-6 drop-shadow-lg dark:bg-gray-800 dark:text-white ${
+                  openModal
+                    ? "scale-1 opacity-1 duration-300"
+                    : "scale-0 opacity-0 duration-150"
+                }`}
+              >
+                <h1 className="mb-2 text-2xl font-semibold">
+                  See Your Update Summary!
+                </h1>
+                <div className="p-6  space-y-2">
+                  <p>
+                    <b>Previous Check In Date: </b>
+                    <span className="text-red-500">
+                      {" "}
+                      {new Date(booking?.checkIn).toLocaleDateString()}
+                    </span>
+                  </p>
+                  <p>
+                    <b>New Check In Date: </b>
+                    <span className="text-emerald-500">
+                      {" "}
+                      {new Date(startDate).toLocaleDateString()}
+                    </span>
+                  </p>
+                  <p>
+                    <b>Previous Check Out Date: </b>
+                    <span className="text-red-500">
+                      {new Date(booking?.checkOut).toLocaleDateString()}
+                    </span>
+                  </p>
+                  <p>
+                    <b>New Check Out Date: </b>
+                    <span className="text-emerald-500">
+                      {" "}
+                      {new Date(endDate).toLocaleDateString()}
+                    </span>
+                  </p>
+                  <p>
+                    <b>New Total Cost: </b>
+                    {newTotal}$
+                  </p>
+                  <p>
+                    <b>New Tax: </b>
+                    {newTax}$
+                  </p>
+                  <p>
+                    <b>Total Payable: </b>
+                    {newTax + newTotal}$
+                  </p>
+                </div>
+                <div className="flex justify-between">
+                  <button
+                    type="submit"
+                    onClick={() => {
+                      setOpenModal(true);
+                    }}
+                    className="me-2 rounded-md bg-indigo-600 hover:bg-indigo-700 px-6 py-[6px] text-white"
+                  >
+                    Update
+                  </button>
+                  <span
+                    onClick={() => setOpenModal(false)}
+                    className="rounded-md border border-rose-600 px-6 py-[6px] text-rose-600 duration-150 hover:bg-rose-600 hover:text-white"
+                  >
+                    Cancel
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
-        <div className="p-6  space-y-2">
+        <div className="flex justify-end mt-6">
+          <button
+            onClick={() => setOpenModal(true)}
+            className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+          >
+            Update Now
+          </button>
+        </div>
+        {/* <div className="p-6  space-y-2">
           <h2 className="text-center font-semibold">Updated Order Summary</h2>
           <p>
             <b>Previous Check In Date: </b>
@@ -237,7 +321,85 @@ const BookingUpdate = () => {
             <b>Total Payable: </b>
             {newTax + newTotal}$
           </p>
-        </div>
+        </div> */}
+        {/* <div
+          onClick={() => setOpenModal(false)}
+          className={`fixed z-[100] flex items-center justify-center ${
+            openModal ? "visible opacity-100" : "invisible opacity-0"
+          } inset-0 bg-black/20 backdrop-blur-sm duration-100 dark:bg-transparent`}
+        >
+          <div
+            onClick={(e_) => e_.stopPropagation()}
+            className={`text- absolute max-w-md rounded-lg bg-white p-6 drop-shadow-lg dark:bg-gray-800 dark:text-white ${
+              openModal
+                ? "scale-1 opacity-1 duration-300"
+                : "scale-0 opacity-0 duration-150"
+            }`}
+          >
+            <h1 className="mb-2 text-2xl font-semibold">
+              See Your Update Summary!
+            </h1>
+            <div className="p-6  space-y-2">
+              <p>
+                <b>Previous Check In Date: </b>
+                <span className="text-red-500">
+                  {" "}
+                  {new Date(booking?.checkIn).toLocaleDateString()}
+                </span>
+              </p>
+              <p>
+                <b>New Check In Date: </b>
+                <span className="text-emerald-500">
+                  {" "}
+                  {new Date(startDate).toLocaleDateString()}
+                </span>
+              </p>
+              <p>
+                <b>Previous Check Out Date: </b>
+                <span className="text-red-500">
+                  {new Date(booking?.checkOut).toLocaleDateString()}
+                </span>
+              </p>
+              <p>
+                <b>New Check Out Date: </b>
+                <span className="text-emerald-500">
+                  {" "}
+                  {new Date(endDate).toLocaleDateString()}
+                </span>
+              </p>
+              <p>
+                <b>New Total Cost: </b>
+                {newTotal}$
+              </p>
+              <p>
+                <b>New Tax: </b>
+                {newTax}$
+              </p>
+              <p>
+                <b>Total Payable: </b>
+                {newTax + newTotal}$
+              </p>
+            </div>
+            <div className="flex justify-between">
+              <button
+                type="submit"
+                onClick={() => {
+                  setOpenModal(true);
+                  handleSubmit(onSubmit);
+                }}
+                className="me-2 rounded-md bg-indigo-600 hover:bg-indigo-700 px-6 py-[6px] text-white"
+              >
+                Update
+              </button>
+              <button
+                onClick={() => setOpenModal(false)}
+                className="rounded-md border border-rose-600 px-6 py-[6px] text-rose-600 duration-150 hover:bg-rose-600 hover:text-white"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div> */}
       </section>
     </div>
   );
