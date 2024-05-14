@@ -4,6 +4,9 @@ const ReviewCard = ({ review }) => {
       <div className="container px-6 py-10 mx-auto">
         <div className="md:w-[365px] md:h-[250px] hover:bg-blue-500 duration-500 hover:scale-95 shadow-md p-8 border rounded-lg dark:border-gray-700">
           <p className="leading-loose text-black dark:text-gray-400">
+            <b>Posted Time: </b>{review?.currentTime}
+          </p>
+          <p className="leading-loose text-black dark:text-gray-400">
             “{review?.reviewDescription.slice(0,70)}”.
           </p>
 

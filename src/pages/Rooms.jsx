@@ -238,11 +238,12 @@ const Rooms = () => {
         <select
           onChange={handleItemsPerPage}
           className="select select-bordered select-sm w-full max-w-xs"
+          defaultValue={itemsPerPage}
         >
-          <option selected>6</option>
-          <option>9</option>
-          <option>12</option>
-          <option>15</option>
+          <option selected>6 / Page</option>
+          <option>9 / Page</option>
+          <option>12 / Page</option>
+          <option>15 / Page</option>
         </select>
       </div>
     </div>

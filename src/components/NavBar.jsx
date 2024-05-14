@@ -4,7 +4,11 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 
 const NavBar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, setLoading } = useContext(AuthContext);
+  // console.log(user);
+  // if (user) {
+  //   setLoading(false);
+  // }
   return (
     <div className="container mx-auto max-w-screen-xl">
       <div className=" navbar bg-base-100">
@@ -32,48 +36,23 @@ const NavBar = () => {
             >
               <li>
                 {" "}
-                <NavLink
-             
-                  to="/"
-                >
-                  Home
-                </NavLink>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
                 {" "}
-                <NavLink
-              
-                  to="/rooms"
-                >
-                  Rooms
-                </NavLink>
+                <NavLink to="/rooms">Rooms</NavLink>
               </li>
               <li>
                 {" "}
-                <NavLink
-               
-                  to="/mybookings"
-                >
-                  My Bookings
-                </NavLink>
+                <NavLink to="/mybookings">My Bookings</NavLink>
               </li>
               <li>
                 {" "}
-                <NavLink
-                  
-                  to="/aboutus"
-                >
-                  About Us
-                </NavLink>
+                <NavLink to="/aboutus">About Us</NavLink>
               </li>
               <li>
                 {" "}
-                <NavLink
-                  
-                  to="/contactus"
-                >
-                  Contact Us
-                </NavLink>
+                <NavLink to="/contactus">Contact Us</NavLink>
               </li>
             </ul>
           </div>

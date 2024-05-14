@@ -26,7 +26,7 @@ const PricingOffer = () => {
           </div>
 
           <div className="grid gap-6 mt-16 -mx-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            <div className="bg-[#9DDE8B] px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
+            <div className="bg-[#9DDE8B] px-4 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
               <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
                 Coupon: SAVE19
               </p>
@@ -42,7 +42,7 @@ const PricingOffer = () => {
                 For most businesses that want to optimaize web queries.
               </p>
 
-              <div className="mt-8 space-y-8">
+              <div className="mt-8 space-y-3">
                 <div className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ const PricingOffer = () => {
               </button>
             </div>
 
-            <div className="bg-[#FF9F66] px-6 py-4 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
+            <div className="bg-[#FF9F66] px-4 py-2 transition-colors duration-300 transform rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800">
               <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
                 Coupon: WEEKEND25
               </p>
@@ -160,7 +160,7 @@ const PricingOffer = () => {
                 For most businesses that want to optimaize web queries.
               </p>
 
-              <div className="mt-8 space-y-8">
+              <div className="mt-8 space-y-3">
                 <div className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    All limited links
+                    25% off on weekend bookings (Friday-Sunday).
                   </span>
                 </div>
 
@@ -195,7 +195,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Own analytics platform
+                    Late checkout until 2:00 PM on Sunday.
                   </span>
                 </div>
 
@@ -214,7 +214,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Chat support
+                    Welcome drink voucher redeemable at the hotel bar.
                   </span>
                 </div>
 
@@ -233,7 +233,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Optimize hashtags
+                    Complimentary room upgrade .
                   </span>
                 </div>
 
@@ -252,7 +252,7 @@ const PricingOffer = () => {
                   </svg>
 
                   <span className="mx-4 text-gray-700 dark:text-gray-300">
-                    Unlimited users
+                    Access to fitness center and pool facilities.
                   </span>
                 </div>
               </div>

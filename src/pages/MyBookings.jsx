@@ -150,7 +150,12 @@ const MyBookings = () => {
     const userName = user?.displayName;
     const userEmail = user?.email;
     const userPhoto = user?.photoURL;
-
+    const getCurrentTime = () => {
+      const now = new Date();
+      const formattedTime = now.toLocaleString(); // Customize the formatting as needed
+      return formattedTime;
+    };
+    const currentTime = getCurrentTime();
     const newData = {
       ...data,
       roomName,
@@ -158,6 +163,7 @@ const MyBookings = () => {
       userName,
       userEmail,
       userPhoto,
+      currentTime,
     };
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -216,98 +222,99 @@ const MyBookings = () => {
       <Helmet>
         <title>My Bookings</title>
       </Helmet>
-      <section className="container px-4 mx-auto">
-        <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            Your Bookings
-          </h2>
+      {bookings.length > 0 && (
+        <section className="container px-4 mx-auto">
+          <div className="flex items-center gap-x-3">
+            <h2 className="text-lg font-medium text-gray-800 dark:text-white">
+              Your Bookings
+            </h2>
 
-          <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-            {bookings.length} Bookings
-          </span>
-        </div>
+            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
+              {bookings.length} Bookings
+            </span>
+          </div>
 
-        <div className="flex flex-col mt-6">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-50 dark:bg-gray-800">
-                    <tr>
-                      <th className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        Room Type
-                      </th>
+          <div className="flex flex-col mt-6">
+            <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-800">
+                      <tr>
+                        <th className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                          Room Type
+                        </th>
 
-                      <th
-                        scope="col"
-                        className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      >
-                        <button className="flex items-center gap-x-2">
-                          <span>Total Cost</span>
-                        </button>
-                      </th>
+                        <th
+                          scope="col"
+                          className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        >
+                          <button className="flex items-center gap-x-2">
+                            <span>Total Cost</span>
+                          </button>
+                        </th>
 
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      >
-                        <button className="flex items-center gap-x-2">
-                          <span>Check In</span>
-                        </button>
-                      </th>
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        >
+                          <button className="flex items-center gap-x-2">
+                            <span>Check In</span>
+                          </button>
+                        </th>
 
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      >
-                        Check Out
-                      </th>
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        >
+                          Check Out
+                        </th>
 
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      >
-                        Current Status
-                      </th>
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        >
+                          Current Status
+                        </th>
 
-                      <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                    {bookings.map((booking) => (
-                      <tr key={booking?._id}>
-                        <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          <div className="inline-flex items-center gap-x-3">
-                            <div className="flex items-center gap-x-2">
-                              <div>
-                                <h2 className="font-medium text-gray-800 dark:text-white ">
-                                  {booking?.roomType}
-                                </h2>
+                        <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                      {bookings.map((booking) => (
+                        <tr key={booking?._id}>
+                          <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                            <div className="inline-flex items-center gap-x-3">
+                              <div className="flex items-center gap-x-2">
+                                <div>
+                                  <h2 className="font-medium text-gray-800 dark:text-white ">
+                                    {booking?.roomType}
+                                  </h2>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                          <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2  dark:bg-gray-800">
-                            <p>$ {booking?.totalCost}</p>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                          {new Date(booking?.checkIn).toLocaleDateString()}
-                        </td>
-                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                          {new Date(booking?.checkOut).toLocaleDateString()}
-                        </td>
-                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                          <div className="flex items-center gap-x-2">
-                            <p
-                              className={`${
-                                booking?.status == "Pending"
-                                  ? "px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60"
-                                  : ""
-                              }
+                          </td>
+                          <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2  dark:bg-gray-800">
+                              <p>$ {booking?.totalCost}</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                            {new Date(booking?.checkIn).toLocaleDateString()}
+                          </td>
+                          <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                            {new Date(booking?.checkOut).toLocaleDateString()}
+                          </td>
+                          <td className="px-4 py-4 text-sm whitespace-nowrap">
+                            <div className="flex items-center gap-x-2">
+                              <p
+                                className={`${
+                                  booking?.status == "Pending"
+                                    ? "px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60"
+                                    : ""
+                                }
                               ${
                                 booking?.status == "Booked"
                                   ? "px-3 py-1 text-xs text-emerald-500 rounded-full dark:bg-gray-800 bg-emerald-100/60"
@@ -323,357 +330,379 @@ const MyBookings = () => {
                                   ? "px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60"
                                   : ""
                               }`}
-                            >
-                              {booking?.status}
-                            </p>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                          <div className="flex items-center gap-x-6">
-                            <button
-                              disabled={
-                                booking?.status == "Booked" ||
-                                booking?.status == "Canceled" ||
-                                booking?.status == "Reviewed"
-                              }
-                              onClick={() =>
-                                handleCancelBooking(
-                                  booking?._id,
-                                  booking?.status,
-                                  "Canceled",
-                                  booking?.roomId,
-                                  booking?.duration
-                                )
-                              }
-                              className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
-                            >
-                              <MdOutlineFreeCancellation
-                                title="Cancel Booking"
-                                size={20}
-                              ></MdOutlineFreeCancellation>
-                            </button>
+                              >
+                                {booking?.status}
+                              </p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4 text-sm whitespace-nowrap">
+                            <div className="flex items-center gap-x-6">
+                              <button
+                                disabled={
+                                  booking?.status == "Booked" ||
+                                  booking?.status == "Canceled" ||
+                                  booking?.status == "Reviewed"
+                                }
+                                onClick={() =>
+                                  handleCancelBooking(
+                                    booking?._id,
+                                    booking?.status,
+                                    "Canceled",
+                                    booking?.roomId,
+                                    booking?.duration
+                                  )
+                                }
+                                className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
+                              >
+                                <MdOutlineFreeCancellation
+                                  title="Cancel Booking"
+                                  size={20}
+                                ></MdOutlineFreeCancellation>
+                              </button>
 
-                            <button
-                              onClick={() => handleDelete(booking?._id)}
-                              disabled={
-                                booking?.status == "Booked" ||
-                                booking?.status == "Pending" ||
-                                booking?.status == "Reviewed"
-                              }
-                              className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                className="w-5 h-5"
+                              <button
+                                onClick={() => handleDelete(booking?._id)}
+                                disabled={
+                                  booking?.status == "Booked" ||
+                                  booking?.status == "Pending" ||
+                                  booking?.status == "Reviewed"
+                                }
+                                className=" disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                               >
-                                <path d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                              </svg>
-                            </button>
-                            <button
-                              disabled={
-                                booking?.status == "Canceled" ||
-                                booking?.status == "Pending" ||
-                                booking?.status == "Reviewed"
-                              }
-                              onClick={() => {
-                                setOpenModal(true);
-                                setRoomName(booking?.roomName || "Unknown");
-                                setRoomId(booking?.roomId);
-                                setBookingID(booking?._id);
-                              }}
-                              title="Make Review"
-                              className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                className="w-5 h-5"
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  className="w-5 h-5"
+                                >
+                                  <path d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                </svg>
+                              </button>
+                              <button
+                                className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                                title="Update"
+                                disabled={
+                                  booking?.status == "Booked" ||
+                                  booking?.status == "Canceled" ||
+                                  booking?.status == "Reviewed"
+                                }
                               >
-                                <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                              </svg>
-                            </button>
-                            <button
-                              className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
-                              title="Update"
-                              disabled={
-                                booking?.status == "Canceled" ||
-                                booking?.status == "Pending" ||
-                                booking?.status == "Booked"
-                              }
-                            >
-                              <Link to={`/bookingupdate/${booking?._id}`}>
-                                <CiSettings size={22}></CiSettings>
-                              </Link>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                {/* Review Modal */}
-                <form
-                  onSubmit={handleSubmit(onSubmit)}
-                  className="mx-auto flex w-72 items-center justify-center"
-                >
-                  <div
-                    onClick={() => setOpenModal(false)}
-                    className={`fixed z-[100] flex items-center justify-center ${
-                      openModal ? "opacity-1 visible" : "invisible opacity-0"
-                    } inset-0 bg-black/20 backdrop-blur-sm duration-100`}
+                                <Link to={`/bookingupdate/${booking?._id}`}>
+                                  <CiSettings size={22}></CiSettings>
+                                </Link>
+                              </button>
+                              <button
+                                disabled={
+                                  booking?.status == "Canceled" ||
+                                  booking?.status == "Pending" ||
+                                  booking?.status == "Reviewed"
+                                }
+                                onClick={() => {
+                                  setOpenModal(true);
+                                  setRoomName(booking?.roomName || "Unknown");
+                                  setRoomId(booking?.roomId);
+                                  setBookingID(booking?._id);
+                                }}
+                                title="Make Review"
+                                className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  stroke="currentColor"
+                                  className="w-5 h-5"
+                                >
+                                  <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  {/* Review Modal */}
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="mx-auto flex w-72 items-center justify-center"
                   >
                     <div
-                      onClick={(e_) => e_.stopPropagation()}
-                      className={`absolute w-80 rounded-lg bg-white p-6 text-center drop-shadow-2xl dark:bg-gray-800 dark:text-white ${
-                        openModal
-                          ? "opacity-1 translate-y-0 duration-300"
-                          : "translate-y-20 opacity-0 duration-150"
-                      }`}
+                      onClick={() => setOpenModal(false)}
+                      className={`fixed z-[100] flex items-center justify-center ${
+                        openModal ? "opacity-1 visible" : "invisible opacity-0"
+                      } inset-0 bg-black/20 backdrop-blur-sm duration-100`}
                     >
-                      <div className="flex flex-col items-center justify-center space-y-4">
-                        <svg
-                          className="w-16 stroke-rose-600"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g strokeWidth="0"></g>
-                          <g strokeLinecap="round" strokeLinejoin="round"></g>
-                          <g>
-                            <path
-                              opacity="0.4"
-                              d="M12 7.75V13"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            ></path>
-                            <path
-                              d="M21.0802 8.58003V15.42C21.0802 16.54 20.4802 17.58 19.5102 18.15L13.5702 21.58C12.6002 22.14 11.4002 22.14 10.4202 21.58L4.48016 18.15C3.51016 17.59 2.91016 16.55 2.91016 15.42V8.58003C2.91016 7.46003 3.51016 6.41999 4.48016 5.84999L10.4202 2.42C11.3902 1.86 12.5902 1.86 13.5702 2.42L19.5102 5.84999C20.4802 6.41999 21.0802 7.45003 21.0802 8.58003Z"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            ></path>
-                            <path
-                              opacity="0.4"
-                              d="M12 16.2002V16.3002"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            ></path>
-                          </g>
-                        </svg>
-                        <h6 className=" font-medium ">Make Your Review</h6>
-                        <form action="" className="space-y-3">
-                          <div className="">
-                            <label className="text-gray-700 font-bold dark:text-gray-200">
-                              Your Name
-                            </label>
-                            <input
-                              type="text"
-                              readOnly
-                              name="reviewUserName"
-                              defaultValue={user?.displayName || "Unknown"}
-                              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                            />
-                          </div>
-                          <div className="">
-                            <label className="text-gray-700 font-bold dark:text-gray-200">
-                              Your Email
-                            </label>
-                            <input
-                              type="text"
-                              name="reviewUserEmail"
-                              readOnly
-                              defaultValue={user?.email}
-                              className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                              {...register("reviewUserEmail", {
-                                required: true,
-                              })}
-                            />
-                            {errors.reviewUserEmail && (
+                      <div
+                        onClick={(e_) => e_.stopPropagation()}
+                        className={`absolute w-80 rounded-lg bg-white p-6 text-center drop-shadow-2xl dark:bg-gray-800 dark:text-white ${
+                          openModal
+                            ? "opacity-1 translate-y-0 duration-300"
+                            : "translate-y-20 opacity-0 duration-150"
+                        }`}
+                      >
+                        <div className="flex flex-col items-center justify-center space-y-4">
+                          <svg
+                            className="w-16 stroke-rose-600"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g strokeWidth="0"></g>
+                            <g strokeLinecap="round" strokeLinejoin="round"></g>
+                            <g>
+                              <path
+                                opacity="0.4"
+                                d="M12 7.75V13"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>
+                              <path
+                                d="M21.0802 8.58003V15.42C21.0802 16.54 20.4802 17.58 19.5102 18.15L13.5702 21.58C12.6002 22.14 11.4002 22.14 10.4202 21.58L4.48016 18.15C3.51016 17.59 2.91016 16.55 2.91016 15.42V8.58003C2.91016 7.46003 3.51016 6.41999 4.48016 5.84999L10.4202 2.42C11.3902 1.86 12.5902 1.86 13.5702 2.42L19.5102 5.84999C20.4802 6.41999 21.0802 7.45003 21.0802 8.58003Z"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>
+                              <path
+                                opacity="0.4"
+                                d="M12 16.2002V16.3002"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              ></path>
+                            </g>
+                          </svg>
+                          <h6 className=" font-medium ">Make Your Review</h6>
+                          <form action="" className="space-y-3">
+                            <div className="">
+                              <label className="text-gray-700 font-bold dark:text-gray-200">
+                                Your Name
+                              </label>
+                              <input
+                                type="text"
+                                readOnly
+                                name="reviewUserName"
+                                defaultValue={user?.displayName || "Unknown"}
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                              />
+                            </div>
+                            <div className="">
+                              <label className="text-gray-700 font-bold dark:text-gray-200">
+                                Your Email
+                              </label>
+                              <input
+                                type="text"
+                                name="reviewUserEmail"
+                                readOnly
+                                defaultValue={user?.email}
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                                {...register("reviewUserEmail", {
+                                  required: true,
+                                })}
+                              />
+                              {errors.reviewUserEmail && (
+                                <span className="text-red-500 font-semibold">
+                                  Feild Is Required
+                                </span>
+                              )}
+                            </div>
+                            <div className="rating">
+                              <input
+                                type="radio"
+                                name="rating-2"
+                                className="mask mask-star-2 bg-orange-400"
+                              />
+                              <input
+                                type="radio"
+                                name="rating-2"
+                                className="mask mask-star-2 bg-orange-400"
+                                checked
+                              />
+                              <input
+                                type="radio"
+                                name="rating-2"
+                                className="mask mask-star-2 bg-orange-400"
+                              />
+                              <input
+                                type="radio"
+                                name="rating-2"
+                                className="mask mask-star-2 bg-orange-400"
+                              />
+                              <input
+                                type="radio"
+                                name="rating-2"
+                                className="mask mask-star-2 bg-orange-400"
+                              />
+                            </div>
+                            <select
+                              className="select select-bordered w-full max-w-xs"
+                              name="rating"
+                              {...register("rating", { required: true })}
+                            >
+                              <option disabled selected>
+                                Rating (Out Of 5)
+                              </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                            {errors.rating && (
                               <span className="text-red-500 font-semibold">
                                 Feild Is Required
                               </span>
                             )}
-                          </div>
-                          <div className="rating">
-                            <input
-                              type="radio"
-                              name="rating-2"
-                              className="mask mask-star-2 bg-orange-400"
-                            />
-                            <input
-                              type="radio"
-                              name="rating-2"
-                              className="mask mask-star-2 bg-orange-400"
-                              checked
-                            />
-                            <input
-                              type="radio"
-                              name="rating-2"
-                              className="mask mask-star-2 bg-orange-400"
-                            />
-                            <input
-                              type="radio"
-                              name="rating-2"
-                              className="mask mask-star-2 bg-orange-400"
-                            />
-                            <input
-                              type="radio"
-                              name="rating-2"
-                              className="mask mask-star-2 bg-orange-400"
-                            />
-                          </div>
-                          <select
-                            className="select select-bordered w-full max-w-xs"
-                            name="rating"
-                            {...register("rating", { required: true })}
-                          >
-                            <option disabled selected>
-                              Rating (Out Of 5)
-                            </option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                          {errors.rating && (
-                            <span className="text-red-500 font-semibold">
-                              Feild Is Required
-                            </span>
-                          )}
-                          <div>
-                            <label htmlFor="" className="font-semibold">
-                              Write Your Review
-                            </label>
-                            <textarea
-                              className="textarea textarea-success"
-                              placeholder="Write your review"
-                              name="reviewDescription"
-                              {...register("reviewDescription", {
-                                required: true,
-                              })}
-                            ></textarea>
+                            <div>
+                              <label htmlFor="" className="font-semibold">
+                                Write Your Review
+                              </label>
+                              <textarea
+                                className="textarea textarea-success"
+                                placeholder="Write your review"
+                                name="reviewDescription"
+                                {...register("reviewDescription", {
+                                  required: true,
+                                })}
+                              ></textarea>
+                            </div>
                             {errors.reviewDescription && (
                               <span className="text-red-500 font-semibold">
                                 Feild Is Required
                               </span>
                             )}
+                          </form>
+                          <div className="flex gap-2">
+                            <button
+                              type="submit"
+                              onClick={() => {
+                                setOpenModal(false);
+                              }}
+                              className="rounded-md bg-indigo-600 px-6 py-2 text-sm text-white"
+                            >
+                              Make Review
+                            </button>
+                            <button
+                              onClick={() => setOpenModal(false)}
+                              className="rounded-md border border-rose-600 px-6 py-2 text-sm text-rose-600 hover:bg-rose-600 hover:text-white"
+                            >
+                              Not Now
+                            </button>
                           </div>
-                        </form>
-                        <div className="flex gap-2">
-                          <button
-                            type="submit"
-                            onClick={() => {
-                              setOpenModal(false);
-                            }}
-                            className="rounded-md bg-indigo-600 px-6 py-2 text-sm text-white"
-                          >
-                            Make Review
-                          </button>
-                          <button
-                            onClick={() => setOpenModal(false)}
-                            className="rounded-md border border-rose-600 px-6 py-2 text-sm text-rose-600 hover:bg-rose-600 hover:text-white"
-                          >
-                            Not Now
-                          </button>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex md:hidden items-center justify-between mt-6">
-          <a
-            href="#"
-            className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-5 h-5 rtl:-scale-x-100"
+          <div className="flex md:hidden items-center justify-between mt-6">
+            <a
+              href="#"
+              className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
             >
-              <path d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-            </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5 rtl:-scale-x-100"
+              >
+                <path d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+              </svg>
 
-            <span>previous</span>
-          </a>
+              <span>previous</span>
+            </a>
 
-          <div className="items-center hidden lg:flex gap-x-3">
+            <div className="items-center hidden lg:flex gap-x-3">
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60"
+              >
+                1
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+              >
+                2
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+              >
+                3
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+              >
+                ...
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+              >
+                12
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+              >
+                13
+              </a>
+              <a
+                href="#"
+                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+              >
+                14
+              </a>
+            </div>
+
             <a
               href="#"
-              className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60"
+              className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
             >
-              1
-            </a>
-            <a
-              href="#"
-              className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-            >
-              2
-            </a>
-            <a
-              href="#"
-              className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-            >
-              3
-            </a>
-            <a
-              href="#"
-              className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-            >
-              ...
-            </a>
-            <a
-              href="#"
-              className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-            >
-              12
-            </a>
-            <a
-              href="#"
-              className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-            >
-              13
-            </a>
-            <a
-              href="#"
-              className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-            >
-              14
+              <span>Next</span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                className="w-5 h-5 rtl:-scale-x-100"
+              >
+                <path d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+              </svg>
             </a>
           </div>
-
-          <a
-            href="#"
-            className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+        </section>
+      )}
+      {bookings.length == 0 && (
+        <div className="space-y-3 flex flex-col justify-center items-center">
+          <h1 className="text-2xl text-red-500 font-bold">
+            <span className="text-pink-400">Dear, {user?.displayName},</span>
+            There has no bookings yet
+          </h1>
+          <Link
+            to="/rooms"
+            className="btn  relative px-5 py-3 overflow-hidden font-medium text-gray-600 bg-gray-100 border border-gray-100 rounded-lg shadow-inner group"
           >
-            <span>Next</span>
-
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-5 h-5 rtl:-scale-x-100"
-            >
-              <path d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-            </svg>
-          </a>
+            <span className="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-gray-600 group-hover:w-full ease"></span>
+            <span className="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-gray-600 group-hover:w-full ease"></span>
+            <span className="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+            <span className="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-gray-600 group-hover:h-full ease"></span>
+            <span className="absolute inset-0 w-full h-full duration-300 delay-300 bg-gray-900 opacity-0 group-hover:opacity-100"></span>
+            <span className="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
+              Book A Room Now
+            </span>
+          </Link>
         </div>
-      </section>
+      )}
     </div>
   );
 };
