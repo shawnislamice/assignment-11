@@ -1,16 +1,20 @@
 import { Link, useLoaderData } from "react-router-dom";
 import Modal from "../components/Modal";
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import ReviewCard from "../components/ReviewCard";
 import toast from "react-hot-toast";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 export const ValueContext = createContext(null);
 const RoomDetails = () => {
   const room = useLoaderData();
   const axiosSecure = useAxiosSecure();
-
+  const [sort,setSort]=useState('dsc')
 
   const {
     data: reviews = [],
@@ -24,7 +28,7 @@ const RoomDetails = () => {
   });
 
   const getData = async () => {
-    const { data } = await axiosSecure.get(`/reviews/${room?._id}`);
+    const { data } = await axiosSecure.get(`/reviews/${room?._id}?sort=${sort}`);
     return data;
   };
   // console.log(reviews);
@@ -166,7 +170,8 @@ const RoomDetails = () => {
           <div className="my-10">
             <hr className="my-3 border-gray-200  dark:border-gray-700" />
             <h2 className="text-center text-3xl font-semibold">
-              This Rooms has <span className="text-emerald-500">{reviews.length}</span> Reviews
+              This Rooms has{" "}
+              <span className="text-emerald-500">{reviews.length}</span> Reviews
             </h2>
             <p className="max-w-xl mx-auto opacity-90 text-center pt-2">
               Several delighted customers have graciously shared their glowing
@@ -176,11 +181,27 @@ const RoomDetails = () => {
             </p>
             <hr className="my-3 border-gray-200  dark:border-gray-700" />
           </div>
-          <div className="my-5 md:my-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 place-items-center">
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination, Autoplay]}
+            autoplay={{ delay: 1000 }}
+            className="mySwiper"
+          >
+            {reviews.map((review) => (
+              <SwiperSlide key={review._id}>
+                <ReviewCard review={review} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          {/* <div className="my-5 md:my-10 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 place-items-center">
             {reviews.map((review) => (
               <ReviewCard key={review._id} review={review}></ReviewCard>
             ))}
-          </div>
+          </div> */}
         </div>
       )}
       {reviews.length == 0 && (

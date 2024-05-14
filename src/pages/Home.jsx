@@ -80,7 +80,7 @@ const Home = () => {
               />
             </span>
           </h1>
-          <p className="max-w-md md:max-w-xl mx-auto md:text-xl text-center text-[#070F2B] font-medium">
+          <p className="max-w-md  md:max-w-xl mx-auto md:text-xl text-center text-[#070F2B] font-medium">
             Explore the vibrant attractions and cultural landmarks
           </p>
           <button className=" relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
@@ -111,7 +111,7 @@ const Home = () => {
               Explore Now
             </span>
           </button>
-          <div className="bg-[#F87018] rounded-lg p-8  md:absolute -bottom-[10%] flex-col md:flex-row lg:flex md:hidden justify-center md:justify-around items-center gap-4 mb-4 md:mb-0">
+          <div className="bg-white shadow-md rounded-lg p-8  md:absolute -bottom-[10%] flex-col md:flex-row lg:flex md:hidden justify-center md:justify-around items-center gap-4 mb-4 md:mb-0">
             <div className="flex flex-col gap-2">
               <label htmlFor="" className="font-semibold">
                 Check In
