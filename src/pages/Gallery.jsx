@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet-async";
 
 const Gallery = () => {
     return (
-      <div className="my-5 pt-5 md:my-10 container mx-auto max-w-screen-xl">
+      <div className="my-5  md:my-10 container mx-auto max-w-screen-xl">
         <Helmet>
           <title>Prebon Hotels: Gallery</title>
         </Helmet>

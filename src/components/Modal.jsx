@@ -123,7 +123,7 @@ const Modal = ({ room }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="">
+    <form onSubmit={handleSubmit(onSubmit)} className="px-4 md:px-0">
       {/* Pay Button */}
       <Helmet>
         <title>Prebon Hotels: {room?.room_name}</title>
@@ -389,6 +389,12 @@ const Modal = ({ room }) => {
                     <div className="flex flex-col justify-end items-end my-3 space-y-2">
                       <p>
                         <b>Room Name:</b> {room?.room_name}
+                      </p>
+                      <p>
+                        <b>Check In:</b> {new Date(startDate).toLocaleDateString()}
+                      </p>
+                      <p>
+                        <b>Check Out:</b> {new Date(startDate2).toLocaleDateString()}
                       </p>
                       <p>
                         <b>Room Type:</b> {room?.room_type}
