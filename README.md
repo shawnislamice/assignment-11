@@ -2,6 +2,9 @@
 
 Welcome to My Awesome Website! Visit the live site [here](https://assignment-11-prebon-hotels.web.app/).
 
+
+![Website Home Page](public/myassignment.png)
+
 Welcome to Prebon Hotel and Tours - your ultimate destination for booking the perfect hotel room and discovering unforgettable travel experiences! At Prebon Hotel and Tours, we understand that finding the right accommodation is a vital part of any journey. Whether you're a business traveler seeking convenience and comfort or a leisure explorer looking for a luxurious retreat, we're dedicated to making your stay exceptional.
 
 Our user-friendly platform offers a wide range of hotel options worldwide, catering to various needs, preferences, and budgets. From elegant urban hotels and opulent resorts to charming boutique inns and budget-friendly stays, Prebon Hotel and Tours provides the ideal lodging for every traveler. Explore our curated collection and embark on a journey of comfort, quality, and unforgettable memories, no matter where your travels take you.
