@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   const logOut = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/logout`,{}, {
       withCredentials: true,
     });
     // console.log(data);
