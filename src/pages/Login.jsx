@@ -104,7 +104,7 @@ const Login = () => {
         </TabList>
 
         <TabPanel>
-          <section className="bg-white shadow-xl p-6 rounded-xl dark:bg-gray-900">
+          <section className="bg-white shadow-xl p-6 rounded-xl ">
             <Helmet>
               <title>Login: PrebonHotel</title>
             </Helmet>

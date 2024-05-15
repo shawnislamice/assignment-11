@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading, setLoading } = useContext(AuthContext);
-  // console.log(user, loading);
+  setLoading(false)
   const location = useLocation();
   useEffect(() => {
     if (user?.email) {
