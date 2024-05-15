@@ -34,7 +34,18 @@ const RoomDetails = () => {
   };
   // console.log(reviews);
   refetch();
-
+const breakpoints = {
+  // when window width is >= 768px
+  768: {
+    slidesPerView: 3,
+    spaceBetween: 30,
+  },
+  // when window width is >= 480px
+  480: {
+    slidesPerView: 1,
+    spaceBetween: 10,
+  },
+};
   return (
     <div className="container mx-auto max-w-screen-xl my-5">
       <Helmet>
@@ -186,14 +197,15 @@ const RoomDetails = () => {
             <hr className="my-3 border-gray-200  dark:border-gray-700" />
           </div>
           <Swiper
-            slidesPerView={3}
-            spaceBetween={30}
+            // slidesPerView={3}
+            // spaceBetween={30}
             pagination={{
               clickable: true,
             }}
             modules={[Pagination, Autoplay]}
             autoplay={{ delay: 1000 }}
             className="mySwiper"
+            breakpoints={breakpoints}
           >
             {reviews.map((review) => (
               <SwiperSlide key={review._id}>
