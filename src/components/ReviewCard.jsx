@@ -1,7 +1,7 @@
 const ReviewCard = ({ review }) => {
   return (
     <section className="bg-white dark:bg-gray-900">
-      <div className="container px-6 py-10 mx-auto">
+      <div className="container  md:px-6 md:py-10 mx-auto">
         <div className="md:w-[365px] md:h-[250px] hover:bg-blue-500 duration-500 hover:scale-95 shadow-md p-8 border rounded-lg dark:border-gray-700">
           <p className="leading-loose text-black dark:text-gray-400">
             <b>Posted Time: </b>{review?.currentTime}

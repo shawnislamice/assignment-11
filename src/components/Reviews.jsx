@@ -7,11 +7,19 @@ import { Pagination } from "swiper/modules";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import SwiperCore from "swiper/core";
+import "swiper/swiper-bundle.css";
+// import "swiper/swiper-bundle.min.css";
 
+// Import Swiper styles
+// import "swiper/components/pagination/pagination.min.css";
+
+// Install Swiper modules
+SwiperCore.use([Pagination, Autoplay]);
 const Reviews = () => {
   const axiosSecure = useAxiosSecure();
   const [sort, setSort] = useState("dsc");
-  
+
   const {
     data: reviews = [],
     error,
@@ -55,7 +63,6 @@ const Reviews = () => {
         modules={[Pagination, Autoplay]}
         autoplay={{ delay: 1000 }}
         className="mySwiper"
-      
       >
         {reviews.map((review) => (
           <SwiperSlide key={review._id}>

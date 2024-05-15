@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { CiLogin } from "react-icons/ci";
+import { CiLogin, CiUser } from "react-icons/ci";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 
@@ -205,15 +205,20 @@ const NavBar = () => {
                 </ul>
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="hover:scale-95 duration-300  inline-flex overflow-hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded group"
-              >
-                <span className="px-3.5 py-2 text-white bg-purple-500 group-hover:bg-purple-600 flex items-center justify-center">
-                  <CiLogin size={20}></CiLogin>
-                </span>
-                <span className="pl-4 pr-5 py-2.5">Login Now</span>
-              </Link>
+              <div>
+                <Link
+                  to="/login"
+                  className="hidden hover:scale-95 duration-300  md:inline-flex overflow-hidden text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded group"
+                >
+                  <span className="px-3.5 py-2 text-white bg-purple-500 group-hover:bg-purple-600 flex items-center justify-center">
+                    <CiLogin size={20}></CiLogin>
+                  </span>
+                  <span className="pl-4 pr-5 py-2.5">Login Now</span>
+                </Link>
+                <Link to="/login" className="md:hidden hover:text-red-500 duration-500 block relative right-3">
+                  <CiUser size={23}></CiUser>
+                </Link>
+              </div>
             )}
           </div>
         </div>

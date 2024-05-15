@@ -45,8 +45,8 @@ const Home = () => {
   };
   refetch();
   return (
-    <div>
-      <div className=" md:mb-20 mb-5 relative bg-[url('/slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
+    <div className="">
+      <div className=" md:mb-20 mb-5  relative bg-[url('/slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
         <Helmet>
           <title>Home: PrebonHotel</title>
         </Helmet>
@@ -60,11 +60,14 @@ const Home = () => {
             }}
           >
             Welcome To{" "}
-            <span data-aos='fade-up' style={{ color: "red", fontWeight: "bold" }}>
+            <span
+              data-aos="fade-up"
+              style={{ color: "red", fontWeight: "bold" }}
+            >
               {/* Style will be inherited from the parent element */}
               <Typewriter
                 words={[
-                  "Prebon Hotels and Travels",
+                  "Prebon Hotels",
                   "Enjoy Your Weekend With Us",
                   "We Love",
                   "We Care",
@@ -74,15 +77,13 @@ const Home = () => {
                 cursorStyle="_"
                 typeSpeed={70}
                 deleteSpeed={50}
-                delaySpeed={1000}
+                delaySpeed={2000}
                 onLoopDone={handleDone}
                 onType={handleType}
               />
             </span>
           </h1>
-          <p className="max-w-md  md:max-w-xl mx-auto md:text-xl text-center text-[#070F2B] font-medium">
-            Explore the vibrant attractions and cultural landmarks
-          </p>
+          
           <button className=" relative  inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-indigo-600 transition-all duration-150 ease-in-out rounded hover:pl-10 hover:pr-6 bg-gray-50 group">
             <span className="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-indigo-600 group-hover:h-full"></span>
             <span className="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">

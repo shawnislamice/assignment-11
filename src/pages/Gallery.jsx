@@ -1,13 +1,13 @@
 
 const Gallery = () => {
     return (
-      <div className="my-5 md:my-10 container mx-auto max-w-screen-xl">
+      <div className="my-5 pt-5 md:my-10 container mx-auto max-w-screen-xl">
         <div className="my-10">
           <hr className="my-3 border-gray-200  dark:border-gray-700" />
-          <h2 className="text-center text-3xl font-semibold">
+          <h2 className="text-center text-xl md:text-3xl font-semibold">
             Some Beatuiful Pictures Of Our Rooms
           </h2>
-          <p className="max-w-xl mx-auto opacity-90 text-center pt-2">
+          <p className="md:max-w-xl px-4 md:px-0 mx-auto opacity-90 text-center pt-2">
             Discover the essence of modern sophistication as depicted in our
             captivating room photos, highlighting exquisite details and
             ambiance. Indulge your senses with a glimpse of our inviting spaces,

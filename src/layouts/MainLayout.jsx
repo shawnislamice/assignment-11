@@ -7,7 +7,7 @@ import Aos from "aos";
 const MainLayout = () => {
   Aos.init()
   return (
-    <div>
+    <div className="">
       <div className="md:h-[68px]">
         <NavBar></NavBar>
       </div>

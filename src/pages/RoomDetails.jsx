@@ -36,7 +36,7 @@ const RoomDetails = () => {
 
   return (
     <div className="container mx-auto max-w-screen-xl my-5">
-      <div className="flex flex-col p-2 md:flex-row gap-4 md:gap-6 ">
+      <div className="flex flex-col px-4 md:px-0 md:flex-row gap-4 md:gap-6 ">
         <div className="md:basis-[48%]">
           <img
             src={room?.photo}
@@ -46,7 +46,7 @@ const RoomDetails = () => {
         </div>
         <div className="md:basis-[48%]">
           <hr className="w-full border border-dashed my-3" />
-          <h1 className=" md:text-2xl text-center">
+          <h1 className=" md:text-2xl text-xl text-center">
             <b>Room Name: </b>
             {room?.room_name}
           </h1>
@@ -169,11 +169,11 @@ const RoomDetails = () => {
         <div>
           <div className="my-10">
             <hr className="my-3 border-gray-200  dark:border-gray-700" />
-            <h2 className="text-center text-3xl font-semibold">
+            <h2 className="text-center text-xl md:text-3xl font-semibold">
               This Rooms has{" "}
               <span className="text-emerald-500">{reviews.length}</span> Reviews
             </h2>
-            <p className="max-w-xl mx-auto opacity-90 text-center pt-2">
+            <p className="md:max-w-xl px-4 md:px-0 mx-auto opacity-90 text-center pt-2">
               Several delighted customers have graciously shared their glowing
               reviews of this exceptional room, each echoing the sentiment of a
               truly memorable experience. The consensus is unanimous: this room
