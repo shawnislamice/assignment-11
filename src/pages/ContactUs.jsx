@@ -7,7 +7,7 @@ const ContactUs = () => {
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
       <Helmet>
-        <title>About Us</title>
+        <title>Contact Us</title>
       </Helmet>
       <div className="my-10">
         <hr className="my-3 border-gray-200  dark:border-gray-700" />

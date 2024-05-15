@@ -92,6 +92,9 @@ const Login = () => {
   };
   return (
     <div className=" flex justify-center items-center my-5 md:my-10">
+      <Helmet>
+        <title>Prebon Hotels: Login</title>
+      </Helmet>
       <Tabs>
         <img src="./logo.svg" alt="" className="block mx-auto md:mb-5" />
         {/* <h1 className="text-center font-bold text-3xl md:pb-3 pb-2">PrebonHotel</h1> */}

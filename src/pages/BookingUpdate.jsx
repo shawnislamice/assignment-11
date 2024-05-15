@@ -8,6 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 const BookingUpdate = () => {
   const booking = useLoaderData();
   const { user } = useContext(AuthContext);
@@ -90,6 +91,9 @@ const BookingUpdate = () => {
 
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
+      <Helmet>
+        <title>Prebon Hotels: Booking Update</title>
+      </Helmet>
       <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
         <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
           Update Room Now

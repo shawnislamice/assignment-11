@@ -5,6 +5,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CiSettings } from "react-icons/ci";
+import { Helmet } from "react-helmet-async";
 
 const AddRoom = () => {
   const { user } = useContext(AuthContext);
@@ -46,6 +47,9 @@ const AddRoom = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Prebon Hotels: Add Room</title>
+      </Helmet>
       <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md ">
         <h2 className="text-lg font-semibold text-gray-700 capitalize dark:text-white">
           Add Room Now

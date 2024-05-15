@@ -1,8 +1,7 @@
 import axios from "axios";
 
-
 const axiosSecure = axios.create({
-  baseURL: 'https://hotel-assignment-server.vercel.app',
+  baseURL: "https://hotel-assignment-server.vercel.app",
   withCredentials: true,
 });
 const useAxiosSecure = () => {
@@ -14,7 +13,7 @@ const useAxiosSecure = () => {
   axiosSecure.interceptors.response.use(
     (res) => {
       return res;
-    },
+    }
     // async (error) => {
     //   if (error.response.status == 401 || error.response.status == 403) {
     //     await logOut();

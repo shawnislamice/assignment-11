@@ -5,6 +5,7 @@ import { updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const UpdateProfile = () => {
   const { user } = useContext(AuthContext);
@@ -65,6 +66,9 @@ const UpdateProfile = () => {
   };
   return (
     <div className="my-5 md:my-10 container mx-auto max-w-screen-xl">
+      <Helmet>
+        <title>Prebon Hotels: Update Profile</title>
+      </Helmet>
       <section className="p-6 shadow dark:bg-gray-100 dark:text-gray-900">
         <form
           onSubmit={handleUpdate}

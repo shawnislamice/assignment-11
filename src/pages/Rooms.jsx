@@ -71,7 +71,7 @@ const Rooms = () => {
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
       <Helmet>
-        <title>Rooms</title>
+        <title>Prebon Hotels: Rooms</title>
       </Helmet>
 
       <div className="my-10">

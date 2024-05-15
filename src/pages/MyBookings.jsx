@@ -231,7 +231,7 @@ const MyBookings = () => {
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
       <Helmet>
-        <title>My Bookings</title>
+        <title>Prebon Hotels: My Bookings</title>
       </Helmet>
       {bookings.length > 0 && (
         <section className="container px-4 mx-auto">

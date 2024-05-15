@@ -10,6 +10,7 @@ import { Pagination } from "swiper/modules";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { Helmet } from "react-helmet-async";
 export const ValueContext = createContext(null);
 const RoomDetails = () => {
   const room = useLoaderData();
@@ -36,6 +37,9 @@ const RoomDetails = () => {
 
   return (
     <div className="container mx-auto max-w-screen-xl my-5">
+      <Helmet>
+        <title>Prebon Hotels: Room Details</title>
+      </Helmet>
       <div className="flex flex-col px-4 md:px-0 md:flex-row gap-4 md:gap-6 ">
         <div className="md:basis-[48%]">
           <img

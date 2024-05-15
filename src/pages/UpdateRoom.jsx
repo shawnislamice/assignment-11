@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const UpdateRoom = () => {
   const room = useLoaderData();
@@ -64,6 +65,9 @@ const UpdateRoom = () => {
   };
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
+      <Helmet>
+        <title>Prebon Hotels: Update Room</title>
+      </Helmet>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
           <div>

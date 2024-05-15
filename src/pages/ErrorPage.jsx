@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
   return (
     <div className=" min-h-screen flex-col flex justify-center items-center">
+      <Helmet>
+        <title>Prebon Travels: Error Page</title>
+      </Helmet>
       <h2 className="my-4 text-3xl font-bold">
         Ops! Sorry, Your requested content was not found!
       </h2>

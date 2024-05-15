@@ -3,6 +3,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -233,6 +234,9 @@ const Profile = () => {
  
   return (
     <div className="mx-auto my-10 flex max-w-[350px] flex-col items-center justify-center space-y-4 rounded-xl bg-white p-8 font-sans shadow-lg ">
+      <Helmet>
+        <title>Prebon Hotels: Profile</title>
+      </Helmet>
       <div>
         <h2 className=" text-center font-semibold">Your Profile</h2>
       </div>

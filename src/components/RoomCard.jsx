@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const RoomCard = ({ room }) => {
@@ -6,6 +7,9 @@ const RoomCard = ({ room }) => {
       to={`/rooms/${room?._id}`}
       className="hover:scale-105 duration-500 cursor-pointer"
     >
+      <Helmet>
+        <title>Prebon Hotels: {room?.room_name}</title>
+      </Helmet>
       <div className="mx-auto max-w-[350px] space-y-4 rounded-lg bg-white p-6 shadow-lg md:w-[350px] ">
         <div className="relative">
           <img
@@ -33,7 +37,6 @@ const RoomCard = ({ room }) => {
             Price Per Night: ${room?.price_per_night}
           </div>
         </div>
-        
       </div>
     </Link>
   );

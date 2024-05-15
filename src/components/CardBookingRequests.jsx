@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import toast from "react-hot-toast";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const CardBookingRequests = ({ booking }) => {
   const axiosSecure = useAxiosSecure();
@@ -44,6 +45,9 @@ const CardBookingRequests = ({ booking }) => {
   return (
     <div>
       <div className="hover:scale-95 duration-500 hover:bg-[#B0EBB4] my-3 p-4 w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+        <Helmet>
+          <title>Prebon Hotels: Booking Requests</title>
+        </Helmet>
         <div className="flex items-center justify-between">
           <span className="text-sm font-light text-gray-800 dark:text-gray-400">
             {booking?.roomType || "Unknown"}

@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import SwiperCore from "swiper/core";
 import "swiper/swiper-bundle.css";
+import { Helmet } from "react-helmet-async";
 // import "swiper/swiper-bundle.min.css";
 
 // Import Swiper styles
@@ -37,7 +38,10 @@ const Reviews = () => {
   refetch();
   return (
     <div className="my-5 md:my-10 container mx-auto max-w-screen-xl">
-      <section className="bg-white dark:bg-gray-900">
+      <Helmet>
+        <title>Prebon Hotels: Reviews</title>
+      </Helmet>
+      <section className="bg-white ">
         <div className="container px-6 py-10 mx-auto">
           <div className="mt-6 md:flex md:items-center md:justify-between">
             <div>

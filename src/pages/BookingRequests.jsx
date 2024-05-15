@@ -7,6 +7,7 @@ import { AuthContext } from "../contexts/AuthProvider";
 import { Link } from "react-router-dom";
 import { CiGrid41, CiViewTable } from "react-icons/ci";
 import CardBookingRequests from "../components/CardBookingRequests";
+import { Helmet } from "react-helmet-async";
 
 const BookingRequests = () => {
   const axiosSecure = useAxiosSecure();
@@ -46,6 +47,9 @@ const BookingRequests = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Prebon Hotels: Booking Requests</title>
+      </Helmet>
       {bookingRequests.length > 0 && (
         <section className="container px-4 mx-auto pt-12 max-w-screen-xl">
           <div className="flex justify-between items-center ">

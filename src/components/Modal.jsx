@@ -8,6 +8,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
+import { Helmet } from "react-helmet-async";
 const Modal = ({ room }) => {
   const [openModal, setOpenModal] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
@@ -124,6 +125,9 @@ const Modal = ({ room }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="">
       {/* Pay Button */}
+      <Helmet>
+        <title>Prebon Hotels: {room?.room_name}</title>
+      </Helmet>
       <button
         disabled={room?.availability === "false"}
         onClick={() => setOpenModal(true)}

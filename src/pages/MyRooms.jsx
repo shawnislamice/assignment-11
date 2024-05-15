@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { CiSettings } from "react-icons/ci";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const MyRooms = () => {
   const axiosSecure = useAxiosSecure();
@@ -81,6 +82,9 @@ const MyRooms = () => {
 
   return (
     <div className="container my-5 md:my-10 mx-auto max-w-screen-xl">
+      <Helmet>
+        <title>Prebon Hotels: My Rooms</title>
+      </Helmet>
       <section className="container px-4 mx-auto pt-12 max-w-screen-xl">
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 ">

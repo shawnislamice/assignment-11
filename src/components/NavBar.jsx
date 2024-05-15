@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { CiLogin, CiUser } from "react-icons/ci";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
+import toast from "react-hot-toast";
 
 const NavBar = () => {
   const { user, logOut, setLoading } = useContext(AuthContext);
@@ -196,7 +197,11 @@ const NavBar = () => {
                   <li>
                     <a
                       onClick={() => {
-                        logOut().then().catch();
+                        logOut()
+                          .then((res) => {
+                            toast.success("Logged Out Successfully!");
+                          })
+                          .catch();
                       }}
                     >
                       Logout
@@ -215,7 +220,10 @@ const NavBar = () => {
                   </span>
                   <span className="pl-4 pr-5 py-2.5">Login Now</span>
                 </Link>
-                <Link to="/login" className="md:hidden hover:text-red-500 duration-500 block relative right-3">
+                <Link
+                  to="/login"
+                  className="md:hidden hover:text-red-500 duration-500 block relative right-3"
+                >
                   <CiUser size={23}></CiUser>
                 </Link>
               </div>

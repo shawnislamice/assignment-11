@@ -1,7 +1,11 @@
+import { Helmet } from "react-helmet-async";
 
 const Gallery = () => {
     return (
       <div className="my-5 pt-5 md:my-10 container mx-auto max-w-screen-xl">
+        <Helmet>
+          <title>Prebon Hotels: Gallery</title>
+        </Helmet>
         <div className="my-10">
           <hr className="my-3 border-gray-200  dark:border-gray-700" />
           <h2 className="text-center text-xl md:text-3xl font-semibold">

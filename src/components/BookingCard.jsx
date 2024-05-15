@@ -221,6 +221,9 @@ const BookingCard = ({ booking }) => {
   return (
     <div>
       <div className="my-3 hover:scale-95 duration-500 hover:bg-[#A0DEFF] p-4 w-full max-w-sm px-4 py-3 bg-white rounded-md shadow-md dark:bg-gray-800">
+        <Helmet>
+          <title>Prebon Hotels: {booking?.roomName}</title>
+        </Helmet>
         <div className="flex items-center justify-between">
           <span className="text-sm font-light text-gray-800 dark:text-gray-400">
             {booking?.roomType || "Unknown"}
