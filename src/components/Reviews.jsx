@@ -35,6 +35,18 @@ const Reviews = () => {
     const { data } = await axiosSecure.get(`/reviews?sort=${sort}`);
     return data;
   };
+  const breakpoints = {
+    // when window width is >= 768px
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+    // when window width is >= 480px
+    480: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    },
+  };
   refetch();
   return (
     <div className="my-5 md:my-10 container mx-auto max-w-screen-xl">
@@ -59,14 +71,15 @@ const Reviews = () => {
         </div>
       </section>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
+        // slidesPerView={3}
+     
         pagination={{
           clickable: true,
         }}
         modules={[Pagination, Autoplay]}
         autoplay={{ delay: 1000 }}
         className="mySwiper"
+        breakpoints={breakpoints}
       >
         {reviews.map((review) => (
           <SwiperSlide key={review._id}>

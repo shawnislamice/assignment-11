@@ -129,7 +129,7 @@ const Login = () => {
 
                   <input
                     type="email"
-                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Email address"
                     name="email"
                   />
@@ -150,7 +150,7 @@ const Login = () => {
 
                   <input
                     type="password"
-                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Password"
                     name="password"
                   />
@@ -196,7 +196,7 @@ const Login = () => {
 
                   <div className="mt-6 text-center ">
                     <Link
-                      to="/register"
+                      to=""
                       href="#"
                       className="text-sm text-blue-500 hover:underline dark:text-blue-400"
                     >
@@ -209,7 +209,7 @@ const Login = () => {
           </section>
         </TabPanel>
         <TabPanel>
-          <section className="bg-white shadow-xl rounded-xl md:p-6 p-4 dark:bg-gray-900">
+          <section className="bg-white shadow-xl rounded-xl md:p-6 p-4 ">
             <Helmet>
               <title>Register: PrebonHotel</title>
             </Helmet>
@@ -236,7 +236,7 @@ const Login = () => {
 
                   <input
                     type="text"
-                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Username"
                     name="username"
                     {...register("username", { required: true })}
@@ -263,7 +263,7 @@ const Login = () => {
 
                   <input
                     type="text"
-                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Profile Photo URL"
                     name="photo"
                     {...register("photo", { required: true })}
@@ -291,7 +291,7 @@ const Login = () => {
 
                   <input
                     type="email"
-                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Email address"
                     name="email"
                     {...register("email", { required: true })}
@@ -318,7 +318,7 @@ const Login = () => {
 
                   <input
                     type="password"
-                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Password"
                     name="password"
                     {...register("password", { required: true })}
@@ -345,7 +345,7 @@ const Login = () => {
 
                   <input
                     type="password"
-                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     placeholder="Confirm Password"
                     name="confirmPassword"
                     {...register("confirmPassword", { required: true })}

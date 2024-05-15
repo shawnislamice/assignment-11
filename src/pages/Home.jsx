@@ -44,9 +44,10 @@ const Home = () => {
     return data;
   };
   refetch();
+ 
   return (
     <div className="">
-      <div className=" md:mb-20 mb-5  relative bg-[url('/slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
+      <div data-aos='fade-up' className=" lg:mb-20 mb-5  relative bg-[url('/slide_1.jpg')] bg-cover   bg-center bg-no-repeat  min-h-[600px]">
         <Helmet>
           <title>Home: PrebonHotel</title>
         </Helmet>
@@ -112,7 +113,7 @@ const Home = () => {
               Explore Now
             </span>
           </button>
-          <div className="bg-white shadow-md rounded-lg p-8  md:absolute -bottom-[10%] flex-col md:flex-row lg:flex md:hidden justify-center md:justify-around items-center gap-4 mb-4 md:mb-0">
+          <div data-aos='zoom-in' className="bg-white shadow-md rounded-lg p-8  md:absolute -bottom-[10%] flex-col md:flex-row lg:flex md:hidden justify-center md:justify-around items-center gap-4 mb-4 md:mb-0">
             <div className="flex flex-col gap-2">
               <label htmlFor="" className="font-semibold">
                 Check In
@@ -165,7 +166,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="pt-2 container mx-auto max-w-screen-xl">
+      <div  className="pt-2 container mx-auto max-w-screen-xl">
         <hr className="my-3 border-gray-200  dark:border-gray-700" />
         <h2 className="text-center text-3xl font-semibold">Rooms</h2>
         <p className="max-w-xl mx-auto opacity-90 text-center pt-2">
@@ -175,7 +176,7 @@ const Home = () => {
         </p>
         <hr className="my-3 border-gray-200  dark:border-gray-700" />
       </div>
-      <div className="pt-2 grid md:grid-cols-2 lg:grid-cols-3 place-items-center grid-cols-1 max-w-6xl mx-auto">
+      <div className="pt-2 grid md:grid-cols-2 lg:grid-cols-3 place-items-center grid-cols-1 max-w-6xl mx-auto gap-3 md:gap-4 lg:gap-6">
         {rooms.splice(0, 6).map((room) => (
           <RoomCard room={room} key={room?._id}></RoomCard>
         ))}

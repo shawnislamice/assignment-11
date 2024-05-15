@@ -406,11 +406,7 @@ const MyBookings = () => {
                               <button
                                 className="disabled:cursor-not-allowed text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
                                 title="Update"
-                                disabled={
-                                  booking?.status == "Booked" ||
-                                  booking?.status == "Canceled" ||
-                                  booking?.status == "Reviewed"
-                                }
+                              
                               >
                                 <Link to={`/bookingupdate/${booking?._id}`}>
                                   <CiSettings size={22}></CiSettings>
