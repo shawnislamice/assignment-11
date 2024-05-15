@@ -60,7 +60,7 @@ const Home = () => {
             }}
           >
             Welcome To{" "}
-            <span style={{ color: "red", fontWeight: "bold" }}>
+            <span data-aos='fade-up' style={{ color: "red", fontWeight: "bold" }}>
               {/* Style will be inherited from the parent element */}
               <Typewriter
                 words={[

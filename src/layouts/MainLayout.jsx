@@ -2,8 +2,10 @@ import { Outlet } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { Toaster } from "react-hot-toast";
+import Aos from "aos";
 
 const MainLayout = () => {
+  Aos.init()
   return (
     <div>
       <div className="md:h-[68px]">

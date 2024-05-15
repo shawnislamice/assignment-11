@@ -38,31 +38,35 @@ const NavBar = () => {
               >
                 <li>
                   {" "}
-                  <NavLink to="/">Home</NavLink>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
                   {" "}
-                  <NavLink to="/rooms">Rooms</NavLink>
+                  <Link to="/rooms">Rooms</Link>
                 </li>
                 <li>
                   {" "}
-                  <NavLink to="/mybookings">My Bookings</NavLink>
+                  <Link to="/mybookings">My Bookings</Link>
                 </li>
                 <li>
                   {" "}
-                  <NavLink to="/aboutus">About Us</NavLink>
+                  <Link to="/aboutus">About Us</Link>
                 </li>
                 <li>
                   {" "}
-                  <NavLink to="/contactus">Contact Us</NavLink>
+                  <Link to="/contactus">Contact Us</Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link to="/gallery">Gallery</Link>
                 </li>
               </ul>
             </div>
             <Link
               to="/"
-              className="flex items-center font-semibold cursor-pointer text-xl gap-2"
+              className="flex  items-center font-semibold cursor-pointer text-xl gap-2"
             >
-              <img className="size-7 " src="/logo.svg" alt="" />
+              <img className="size-12" src="/logo.png" alt="" />
               <h1>
                 Prebon<span className="text-[#2993EA]">Hotel</span>
               </h1>
@@ -73,7 +77,11 @@ const NavBar = () => {
               <li>
                 {" "}
                 <NavLink
-                  className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-none border bg-[#0E46A3] border-[#2993EA] duration-500 font-semibold text-white "
+                      : "hover:bg-[#5BBCFF] duration-500"
+                  }
                   to="/"
                 >
                   Home
@@ -82,7 +90,11 @@ const NavBar = () => {
               <li>
                 {" "}
                 <NavLink
-                  className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-none border bg-[#0E46A3] border-[#2993EA] duration-500 font-semibold text-white "
+                      : "hover:bg-[#5BBCFF] duration-500"
+                  }
                   to="/rooms"
                 >
                   Rooms
@@ -91,7 +103,11 @@ const NavBar = () => {
               <li>
                 {" "}
                 <NavLink
-                  className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-none border bg-[#0E46A3] border-[#2993EA] duration-500 font-semibold text-white "
+                      : "hover:bg-[#5BBCFF] duration-500"
+                  }
                   to="/mybookings"
                 >
                   My Bookings
@@ -100,7 +116,11 @@ const NavBar = () => {
               <li>
                 {" "}
                 <NavLink
-                  className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-none border bg-[#0E46A3] border-[#2993EA] duration-500 font-semibold text-white "
+                      : "hover:bg-[#5BBCFF] duration-500"
+                  }
                   to="/aboutus"
                 >
                   About Us
@@ -109,7 +129,11 @@ const NavBar = () => {
               <li>
                 {" "}
                 <NavLink
-                  className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-none border bg-[#0E46A3] border-[#2993EA] duration-500 font-semibold text-white "
+                      : "hover:bg-[#5BBCFF] duration-500"
+                  }
                   to="/contactus"
                 >
                   Contact Us
@@ -118,7 +142,11 @@ const NavBar = () => {
               <li>
                 {" "}
                 <NavLink
-                  className={({ isActive }) => (isActive ? "bg-red-500" : "")}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-none border bg-[#0E46A3] border-[#2993EA] duration-500 font-semibold text-white "
+                      : "hover:bg-[#5BBCFF] duration-500"
+                  }
                   to="/gallery"
                 >
                   Gallery

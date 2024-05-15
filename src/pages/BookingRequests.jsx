@@ -2,31 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import Spinner from "../components/Spinner";
 import toast from "react-hot-toast";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthProvider";
 import { Link } from "react-router-dom";
+import { CiGrid41, CiViewTable } from "react-icons/ci";
+import CardBookingRequests from "../components/CardBookingRequests";
 
 const BookingRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [myTotalBookings, setMyTotalBookings] = useState(null);
-
-  const [itemsPerPage, setItemsPerPage] = useState(5);
-  const page = 5 // Adjust the page numbers the way you want
-  console.log(page);
-  const updatePageNumber = (num) => {
-    if (num > page - 1 || 0 > num) {
-      return setPageNumber(0);
-    }
-    setPageNumber(num);
-  };
-
-  // useEffect(() => {
-  //   fetch(`${import.meta.env.VITE_API_URL}/bookingrequestscount/${user?.email}`)
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-  // }, []);
+  const [viewMode, setViewMode] = useState("table");
   const {
     data: bookingRequests = [],
     isError,
@@ -35,13 +20,16 @@ const BookingRequests = () => {
     refetch,
   } = useQuery({
     queryFn: () => getData(),
-    queryKey: ["booking-requests",page,pageNumber,itemsPerPage,myTotalBookings],
+    queryKey: ["booking-requests"],
   });
   const getData = async () => {
-    const { data } = await axiosSecure.get(`/bookingrequests/${user?.email}?size=${itemsPerPage}&page=${pageNumber}`);
+    const { data } = await axiosSecure.get(
+      `/bookingrequests/${user?.email}?size}`
+    );
     console.log(data);
     return data;
   };
+
   if (isLoading) {
     return <Spinner></Spinner>;
   }
@@ -55,25 +43,48 @@ const BookingRequests = () => {
       .then((res) => console.log(res.data));
     refetch();
   };
+
   return (
     <div>
       {bookingRequests.length > 0 && (
         <section className="container px-4 mx-auto pt-12 max-w-screen-xl">
-          <div className="flex items-center gap-x-3">
-            <h2 className="text-lg font-medium text-gray-800 ">
-              Booking Requests
-            </h2>
+          <div className="flex justify-between items-center ">
+            <div className="flex items-center gap-x-3">
+              <h2 className="text-lg font-medium text-gray-800 ">
+                Booking Requests
+              </h2>
 
-            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">
-              {bookingRequests.length} Requests
-            </span>
+              <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full ">
+                {bookingRequests.length} Requests
+              </span>
+            </div>
+            <div className="flex  gap-2 mr-3">
+              <button
+                className="cursor-pointer hover:scale-95 duration-500 hover:text-yellow-500"
+                onClick={() => setViewMode("table")}
+              >
+                <CiViewTable size={20}></CiViewTable>
+              </button>
+              <button
+                className="cursor-pointer hover:scale-95 duration-500 hover:text-pink-500"
+                onClick={() => setViewMode("grid")}
+              >
+                <CiGrid41 size={20}></CiGrid41>
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                 <div className="overflow-hidden border border-gray-200  md:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200">
+                  <table
+                    className={
+                      viewMode == "table"
+                        ? "min-w-full divide-y divide-gray-200"
+                        : "hidden"
+                    }
+                  >
                     <thead className="bg-gray-50">
                       <tr>
                         <th
@@ -278,88 +289,19 @@ const BookingRequests = () => {
               </div>
             </div>
           </div>
-          <div className="mt-6 flex select-none justify-center items-center bg-white shadow-lg rounded-sm w-fit mx-auto">
-            {/* left arrow */}
-            <div
-              onClick={() => {
-                updatePageNumber(pageNumber - 1);
-              }}
-              className="transition-all py-2 px-3 text-sm border-r duration-200 cursor-pointer p-2 rounded-md flex hover:bg-gray-200 items-center"
-            >
-              <svg
-                className="w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M15 7L10 12L15 17"
-                    stroke="#0284C7"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />{" "}
-                </g>
-              </svg>
-              Previous
-            </div>
-            <div className="flex justify-center items-center  ">
-              {[...Array(page).keys()].map((item, ind) => (
-                <div
-                  onClick={() => {
-                    setPageNumber(item);
-                  }}
-                  className={`cursor-pointer  text-sm  transition-all border-r border-l  duration-200 px-4 ${
-                    pageNumber === item
-                      ? "bg-sky-500 text-white"
-                      : "bg-white hover:bg-gray-200"
-                  }   font-semibold text-gray-700   py-[8px] `}
-                  key={item}
-                >
-                  {item + 1}
-                </div>
-              ))}
-            </div>
-            {/* right arrow */}
-            <div
-              onClick={() => {
-                updatePageNumber(pageNumber + 1);
-              }}
-              className=" transition-all py-2  px-3 text-sm duration-200 cursor-pointer border-l  rounded-md flex hover:bg-gray-200 items-center"
-            >
-              Next
-              <svg
-                className="w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M10 7L15 12L10 17"
-                    stroke="#0284C7"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-            </div>
+          <div
+            className={
+              viewMode == "grid"
+                ? "my-5 max-w-5xl mx-auto md:my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center gap-3 md:gap-4 lg:gap-5"
+                : "hidden"
+            }
+          >
+            {bookingRequests.map((booking) => (
+              <CardBookingRequests
+                key={booking?._id}
+                booking={booking}
+              ></CardBookingRequests>
+            ))}
           </div>
         </section>
       )}

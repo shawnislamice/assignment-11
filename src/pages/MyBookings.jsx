@@ -10,6 +10,9 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import Spinner from "../components/Spinner";
 import { Link } from "react-router-dom";
+import { CiViewTable } from "react-icons/ci";
+import { CiGrid41 } from "react-icons/ci";
+import BookingCard from "../components/BookingCard";
 
 const MyBookings = () => {
   const axiosSecure = useAxiosSecure();
@@ -18,22 +21,7 @@ const MyBookings = () => {
   const [roomName, setRoomName] = useState("");
   const [roomId, setRoomId] = useState(null);
   const [bookingId, setBookingID] = useState(null);
-  const [pageNumber, setPageNumber] = useState(0);
-  const [myTotalBookings,setMyTotalBookings]=useState(null)
-  const [itemsPerPage,setItemsPerPage]=useState(5)
-  const page = Math.ceil(myTotalBookings/itemsPerPage); // Adjust the page numbers the way you want
-  const updatePageNumber = (num) => {
-    if (num > page - 1 || 0 > num) {
-      return setPageNumber(0);
-    }
-    setPageNumber(num);
-  };
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/bookingscount`)
-      .then((res) => res.json())
-      .then((data) => setMyTotalBookings(parseInt(data.totalBookings)));
-  }, []);
+  const [viewMode, setViewMode] = useState("table");
   // console.log(roomd);
   // console.log(roomId);
   const {
@@ -44,13 +32,12 @@ const MyBookings = () => {
     refetch,
   } = useQuery({
     queryFn: () => getData(),
-    queryKey: ["my-bookings", pageNumber, itemsPerPage, myTotalBookings, page],
+    queryKey: ["my-bookings"],
   });
+
   // console.log(bookings);
   const getData = async () => {
-    const { data } = await axiosSecure.get(
-      `/bookingss/${user?.email}?page=${pageNumber}&size=${itemsPerPage}`
-    );
+    const { data } = await axiosSecure.get(`/bookingss/${user?.email}`);
     return data;
   };
 
@@ -233,7 +220,14 @@ const MyBookings = () => {
   if (isError || error) {
     toast.error(error.message);
   }
-
+  const handleTable = (e) => {
+    e.preventDefault();
+    setViewMode("table");
+  };
+  const handleGrid = (e) => {
+    e.preventDefault();
+    setViewMode("grid");
+  };
   return (
     <div className="container mx-auto max-w-screen-xl my-5 md:my-10">
       <Helmet>
@@ -241,22 +235,35 @@ const MyBookings = () => {
       </Helmet>
       {bookings.length > 0 && (
         <section className="container px-4 mx-auto">
-          <div className="flex items-center gap-x-3">
-            <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-              Your Bookings
-            </h2>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-x-3">
+              <h2 className="text-lg font-medium text-gray-800 dark:text-white">
+                Your Bookings
+              </h2>
 
-            <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400">
-              {bookings.length} Bookings
-            </span>
+              <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full  dark:text-blue-400">
+                {bookings.length} Bookings
+              </span>
+            </div>
+            <div className="flex  gap-2 mr-3">
+              <button className="cursor-pointer hover:scale-95 duration-500 hover:text-yellow-500"  onClick={handleTable}>
+                <CiViewTable size={20}></CiViewTable>
+              </button>
+              <button  className="cursor-pointer hover:scale-95 duration-500 hover:text-pink-500" onClick={handleGrid}>
+                <CiGrid41 size={20}></CiGrid41>
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                 <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-800">
+                  <table
+                    id="booking-table"
+                    className={viewMode=='table'?'min-w-full divide-y divide-gray-200 dark:divide-gray-700':'hidden'}
+                  >
+                    <thead className="bg-gray-50 ">
                       <tr>
                         <th className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                           Room Type
@@ -299,7 +306,7 @@ const MyBookings = () => {
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                    <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 ">
                       {bookings.map((booking) => (
                         <tr key={booking?._id}>
                           <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
@@ -314,7 +321,7 @@ const MyBookings = () => {
                             </div>
                           </td>
                           <td className="px-12 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2  dark:bg-gray-800">
+                            <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2  ">
                               <p>$ {booking?.totalCost}</p>
                             </div>
                           </td>
@@ -329,22 +336,22 @@ const MyBookings = () => {
                               <p
                                 className={`${
                                   booking?.status == "Pending"
-                                    ? "px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60"
+                                    ? "px-3 py-1 text-xs text-indigo-500 rounded-full  bg-indigo-100/60"
                                     : ""
                                 }
                               ${
                                 booking?.status == "Booked"
-                                  ? "px-3 py-1 text-xs text-emerald-500 rounded-full dark:bg-gray-800 bg-emerald-100/60"
+                                  ? "px-3 py-1 text-xs text-emerald-500 rounded-full  bg-emerald-100/60"
                                   : ""
                               }
                               ${
                                 booking?.status == "Canceled"
-                                  ? "px-3 py-1 text-xs text-pink-500 rounded-full dark:bg-gray-800 bg-pink-100/60"
+                                  ? "px-3 py-1 text-xs text-pink-500 rounded-full  bg-pink-100/60"
                                   : ""
                               }
                               ${
                                 booking?.status == "Reviewed"
-                                  ? "px-3 py-1 text-xs text-indigo-500 rounded-full dark:bg-gray-800 bg-indigo-100/60"
+                                  ? "px-3 py-1 text-xs text-indigo-500 rounded-full  bg-indigo-100/60"
                                   : ""
                               }`}
                               >
@@ -453,7 +460,7 @@ const MyBookings = () => {
                     >
                       <div
                         onClick={(e_) => e_.stopPropagation()}
-                        className={`absolute w-80 rounded-lg bg-white p-6 text-center drop-shadow-2xl dark:bg-gray-800 dark:text-white ${
+                        className={`absolute w-80 rounded-lg bg-white p-6 text-center drop-shadow-2xl  dark:text-white ${
                           openModal
                             ? "opacity-1 translate-y-0 duration-300"
                             : "translate-y-20 opacity-0 duration-150"
@@ -502,7 +509,7 @@ const MyBookings = () => {
                                 readOnly
                                 name="reviewUserName"
                                 defaultValue={user?.displayName || "Unknown"}
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                               />
                             </div>
                             <div className="">
@@ -514,7 +521,7 @@ const MyBookings = () => {
                                 name="reviewUserEmail"
                                 readOnly
                                 defaultValue={user?.email}
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                                 {...register("reviewUserEmail", {
                                   required: true,
                                 })}
@@ -616,170 +623,14 @@ const MyBookings = () => {
               </div>
             </div>
           </div>
-          {/* Pagination */}
-          <div className="mt-6 flex select-none justify-center items-center bg-white shadow-lg rounded-sm w-fit mx-auto">
-            {/* left arrow */}
-            <div
-              onClick={() => {
-                updatePageNumber(pageNumber - 1);
-              }}
-              className="transition-all py-2 px-3 text-sm border-r duration-200 cursor-pointer p-2 rounded-md flex hover:bg-gray-200 items-center"
-            >
-              <svg
-                className="w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M15 7L10 12L15 17"
-                    stroke="#0284C7"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />{" "}
-                </g>
-              </svg>
-              Previous
-            </div>
-            <div className="flex justify-center items-center  ">
-              {[...Array(page).keys()].map((item, ind) => (
-                <div
-                  onClick={() => {
-                    setPageNumber(item);
-                  }}
-                  className={`cursor-pointer  text-sm  transition-all border-r border-l  duration-200 px-4 ${
-                    pageNumber === item
-                      ? "bg-sky-500 text-white"
-                      : "bg-white hover:bg-gray-200"
-                  }   font-semibold text-gray-700   py-[8px] `}
-                  key={item}
-                >
-                  {item + 1}
-                </div>
-              ))}
-            </div>
-            {/* right arrow */}
-            <div
-              onClick={() => {
-                updatePageNumber(pageNumber + 1);
-              }}
-              className=" transition-all py-2  px-3 text-sm duration-200 cursor-pointer border-l  rounded-md flex hover:bg-gray-200 items-center"
-            >
-              Next
-              <svg
-                className="w-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M10 7L15 12L10 17"
-                    stroke="#0284C7"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-            </div>
-          </div>
-          {/* Pagination */}
-          <div className="flex md:hidden items-center justify-between mt-6">
-            <a
-              href="#"
-              className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-5 h-5 rtl:-scale-x-100"
-              >
-                <path d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-              </svg>
 
-              <span>previous</span>
-            </a>
-
-            <div className="items-center hidden lg:flex gap-x-3">
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-blue-500 rounded-md dark:bg-gray-800 bg-blue-100/60"
-              >
-                1
-              </a>
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-              >
-                2
-              </a>
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-              >
-                3
-              </a>
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-              >
-                ...
-              </a>
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-              >
-                12
-              </a>
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-              >
-                13
-              </a>
-              <a
-                href="#"
-                className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
-              >
-                14
-              </a>
-            </div>
-
-            <a
-              href="#"
-              className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
-            >
-              <span>Next</span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-5 h-5 rtl:-scale-x-100"
-              >
-                <path d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-              </svg>
-            </a>
+          <div
+            id="grid-view"
+            className={viewMode=='grid'?'my-5 max-w-5xl mx-auto md:my-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-5 place-items-center':'hidden'}
+          >
+            {bookings.map((booking) => (
+              <BookingCard key={booking._id} booking={booking}></BookingCard>
+            ))}
           </div>
         </section>
       )}

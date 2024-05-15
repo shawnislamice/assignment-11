@@ -7,7 +7,7 @@ const HomeMap = () => {
 
   return (
     <div className="my-5 md:my-10">
-      <section className="bg-white dark:bg-gray-900">
+      <section className="bg-white">
         <div className="container px-6 py-16 mx-auto text-center">
           <div className="max-w-lg mx-auto">
             <h1 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">

@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
       withCredentials: true,
     });
-    console.log(data);
+    // console.log(data);
     setLoading(true);
     return signOut(auth);
   };
@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, async(currentUser) => {
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       const loggedUser = { email: currentUser?.email };
       if (currentUser) {
@@ -62,11 +62,12 @@ const AuthProvider = ({ children }) => {
     createUser,
     signIn,
     signInWithGoogle,
-    logOut,
+
     loading,
     setLoading,
     user,
     setUser,
+    logOut,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

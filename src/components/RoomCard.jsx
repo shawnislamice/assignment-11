@@ -6,7 +6,7 @@ const RoomCard = ({ room }) => {
       to={`/rooms/${room?._id}`}
       className="hover:scale-105 duration-500 cursor-pointer"
     >
-      <div className="mx-auto max-w-[350px] space-y-4 rounded-lg bg-white p-6 shadow-lg md:w-[350px] dark:bg-[#18181B]">
+      <div className="mx-auto max-w-[350px] space-y-4 rounded-lg bg-white p-6 shadow-lg md:w-[350px] ">
         <div className="relative">
           <img
             src={room?.photo}

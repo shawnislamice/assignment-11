@@ -28,7 +28,7 @@ const ContactUs = () => {
           />
         </div>
         <div className="basis-1/2  rounded-xl">
-          <section className="max-w-4xl p-6 mx-auto bg-white rounded-md  dark:bg-gray-800">
+          <section className="max-w-4xl p-6 mx-auto bg-white rounded-md  ">
             <h2 className="text-lg  font-semibold text-gray-700 capitalize dark:text-white">
               Contact Us
             </h2>
@@ -43,7 +43,7 @@ const ContactUs = () => {
                     readOnly
                     defaultValue={user?.displayName}
                     type="text"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   />
                 </div>
 
@@ -55,7 +55,7 @@ const ContactUs = () => {
                     readOnly
                     defaultValue={user?.email}
                     type="email"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md  dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
                   />
                 </div>
                 <div className="flex flex-col gap-2  w-[580px]">

@@ -1,7 +1,7 @@
 const PricingOffer = () => {
   return (
     <div className="my-5 md:my-10 container mx-auto max-w-screen-xl">
-      <div className="bg-white dark:bg-gray-900">
+      <div className="bg-white ">
         <div className="container px-6 py-8 mx-auto">
           <div className="xl:items-center xl:-mx-8 xl:flex">
             <div className="flex flex-col items-center xl:items-start xl:mx-8">
@@ -41,7 +41,7 @@ const PricingOffer = () => {
 
             <div className="flex-1 xl:mx-8">
               <div className="mt-8 space-y-8 md:-mx-4 md:flex md:items-center md:justify-center md:space-y-0 xl:mt-0">
-                <div className="max-w-sm mx-auto border rounded-lg md:mx-4 dark:border-gray-700">
+                <div className="max-w-sm mx-auto border rounded-lg md:mx-4 ">
                   <div className="p-6">
                     <h1 className="text-xl font-medium text-gray-700 capitalize lg:text-2xl dark:text-white">
                       Essential
@@ -66,7 +66,7 @@ const PricingOffer = () => {
                     </button>
                   </div>
 
-                  <hr className="border-gray-200 dark:border-gray-700" />
+                  <hr className="border-gray-200 " />
 
                   <div className="p-6">
                     <h1 className="text-lg font-medium text-gray-700 capitalize lg:text-xl dark:text-white">
@@ -88,7 +88,7 @@ const PricingOffer = () => {
                           />
                         </svg>
 
-                        <span className="mx-4 text-gray-700 dark:text-gray-300">
+                        <span className="mx-4 text-gray-700 ">
                           All limited links
                         </span>
                       </div>
